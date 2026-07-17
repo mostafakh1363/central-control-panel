@@ -1,46 +1,62 @@
 import { AppShell } from "@/components/app-shell";
-import { Badge, Button, PageTitle, Panel } from "@/components/ui";
-import { conversations } from "@/lib/data";
+import { Icon } from "@/components/icons";
+import { Badge, EmptyState, LinkButton, PageTitle, Panel } from "@/components/ui";
+import { getConversationsData, sourceLabel, sourceTone } from "@/lib/ai-brain";
 
-export default function ConversationsPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ConversationsPage() {
+  const result = await getConversationsData();
+  const conversations = result.data;
+
   return (
     <AppShell>
       <PageTitle
         eyebrow="Conversation Memory"
         title="مکالمات"
+        description="هر مکالمه به پروژه، نتیجه و قدم بعدی وصل می‌شود."
         actions={
           <>
-            <Button variant="secondary">Summarize call</Button>
-            <Button variant="primary">Add conversation</Button>
+            <Badge tone={sourceTone(result.source)}>{sourceLabel(result.source)}</Badge>
+            <LinkButton href="/tasks" variant="secondary" icon="check">ساخت وظیفه</LinkButton>
+            <LinkButton href="/ai" variant="primary" icon="spark">خلاصه با AI</LinkButton>
           </>
         }
       />
 
+      {result.error ? <section className="action-status">{result.error}</section> : null}
+
       <section className="dashboard-grid">
-        <Panel title="خلاصه مکالمه‌ها" description="هر مکالمه به پروژه، نتیجه و قدم بعدی وصل می‌شود" className="span-12">
-          <div className="cards-grid">
-            {conversations.map((conversation) => (
-              <article className="conversation-card" key={conversation.person}>
-                <div className="project-card__header">
-                  <div className="project-row__icon" data-tone={conversation.tone} />
-                  <div>
-                    <strong>{conversation.person}</strong>
-                    <span>{conversation.project}</span>
+        <Panel title="خلاصه مکالمه‌ها" description="برای پیگیری جلسه‌ها و تبدیل خروجی مکالمه به کار عملیاتی." className="span-12">
+          {conversations.length ? (
+            <div className="cards-grid">
+              {conversations.map((conversation) => (
+                <article className="conversation-card" key={`${conversation.person}-${conversation.project}`}>
+                  <div className="project-card__header">
+                    <div className="project-row__icon" data-tone={conversation.tone}>
+                      <Icon name="message" />
+                    </div>
+                    <div>
+                      <strong>{conversation.person}</strong>
+                      <span>{conversation.project}</span>
+                    </div>
+                    <Badge tone={conversation.tone}>ذخیره‌شده</Badge>
                   </div>
-                  <Badge tone={conversation.tone}>Saved</Badge>
-                </div>
-                <p>{conversation.summary}</p>
-                <div className="next-action">
-                  <span>Next action</span>
-                  <strong>{conversation.nextAction}</strong>
-                </div>
-                <div className="row-actions">
-                  <Button size="sm" variant="secondary">Create task</Button>
-                  <Button size="sm" variant="ghost">Ask AI</Button>
-                </div>
-              </article>
-            ))}
-          </div>
+                  <p>{conversation.summary}</p>
+                  <div className="next-action">
+                    <span>قدم بعدی</span>
+                    <strong>{conversation.nextAction}</strong>
+                  </div>
+                  <div className="row-actions">
+                    <LinkButton size="sm" variant="secondary" href="/tasks">ساخت task</LinkButton>
+                    <LinkButton size="sm" variant="ghost" href="/ai">Ask AI</LinkButton>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <EmptyState title="مکالمه‌ای پیدا نشد" description="endpoint مکالمات داده‌ای برای نمایش برنگرداند." />
+          )}
         </Panel>
       </section>
     </AppShell>

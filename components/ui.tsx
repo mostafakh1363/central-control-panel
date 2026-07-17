@@ -1,44 +1,85 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
+import { Icon, type IconName } from "@/components/icons";
 import type { Tone } from "@/lib/data";
 
 export function Badge({ tone = "neutral", children }: { tone?: Tone; children: ReactNode }) {
-  return <span className="badge" data-tone={tone}>{children}</span>;
+  return (
+    <span className="badge" data-tone={tone}>
+      {children}
+    </span>
+  );
 }
 
 export function Button({
   variant = "secondary",
   size = "md",
   children,
-  type = "button"
+  type = "button",
+  onClick,
+  disabled
 }: {
   variant?: "primary" | "secondary" | "ghost" | "danger";
   size?: "sm" | "md";
   children: ReactNode;
   type?: "button" | "submit";
+  onClick?: () => void;
+  disabled?: boolean;
 }) {
-  return <button className="button" data-variant={variant} data-size={size} type={type}>{children}</button>;
+  return (
+    <button className="button" data-variant={variant} data-size={size} type={type} onClick={onClick} disabled={disabled}>
+      {children}
+    </button>
+  );
+}
+
+export function LinkButton({
+  href,
+  variant = "secondary",
+  size = "md",
+  icon,
+  children
+}: {
+  href: string;
+  variant?: "primary" | "secondary" | "ghost" | "danger";
+  size?: "sm" | "md";
+  icon?: IconName;
+  children: ReactNode;
+}) {
+  return (
+    <Link className="button" data-variant={variant} data-size={size} href={href}>
+      {icon ? <Icon name={icon} className="button__icon" /> : null}
+      <span>{children}</span>
+    </Link>
+  );
 }
 
 export function MetricCard({
   label,
   value,
   description,
-  tone
+  tone,
+  href,
+  icon
 }: {
   label: string;
   value: string;
   description: string;
   tone: Tone;
+  href: string;
+  icon: IconName;
 }) {
   return (
-    <article className="metric-card" data-tone={tone}>
-      <div className="metric-card__icon" aria-hidden="true" />
-      <div className="metric-card__content">
-        <p>{label}</p>
+    <Link className="metric-card" data-tone={tone} href={href}>
+      <span className="metric-card__icon" aria-hidden="true">
+        <Icon name={icon} />
+      </span>
+      <span className="metric-card__content">
+        <span>{label}</span>
         <strong>{value}</strong>
-        <span>{description}</span>
-      </div>
-    </article>
+        <small>{description}</small>
+      </span>
+    </Link>
   );
 }
 
@@ -62,7 +103,7 @@ export function Panel({
           <h2>{title}</h2>
           {description ? <p>{description}</p> : null}
         </div>
-        {action}
+        {action ? <div className="panel__action">{action}</div> : null}
       </header>
       <div className="panel__body">{children}</div>
     </section>
@@ -80,7 +121,7 @@ export function ProgressBar({ value, tone }: { value: number; tone: Tone }) {
 export function Logo() {
   return (
     <div className="logo" aria-hidden="true">
-      <span>M</span>
+      <Icon name="shield" />
     </div>
   );
 }
@@ -88,10 +129,12 @@ export function Logo() {
 export function PageTitle({
   eyebrow,
   title,
+  description,
   actions
 }: {
   eyebrow: string;
   title: string;
+  description?: string;
   actions?: ReactNode;
 }) {
   return (
@@ -99,6 +142,7 @@ export function PageTitle({
       <div>
         <p>{eyebrow}</p>
         <h1>{title}</h1>
+        {description ? <span>{description}</span> : null}
       </div>
       {actions ? <div className="page-title__actions">{actions}</div> : null}
     </div>
@@ -116,7 +160,9 @@ export function EmptyState({
 }) {
   return (
     <section className="empty-state">
-      <div className="empty-state__icon" aria-hidden="true">+</div>
+      <div className="empty-state__icon" aria-hidden="true">
+        <Icon name="plus" />
+      </div>
       <h2>{title}</h2>
       <p>{description}</p>
       {action}
@@ -124,51 +170,6 @@ export function EmptyState({
   );
 }
 
-export function MobilePreview() {
-  return (
-    <section className="mobile-preview" aria-label="نمای موبایل">
-      <div className="phone-frame">
-        <div className="phone-top">
-          <span>07:45</span>
-          <span>● ● ●</span>
-        </div>
-        <div className="phone-brand">
-          <span className="phone-logo">M</span>
-          <div>
-            <strong>Mostafa</strong>
-            <span>Command Center</span>
-          </div>
-        </div>
-        <div className="phone-metrics">
-          <MiniMetric label="سرورها" value="7" />
-          <MiniMetric label="پروژه‌ها" value="12" />
-          <MiniMetric label="وظایف" value="24" />
-          <MiniMetric label="هشدار" value="3" />
-        </div>
-        <div className="phone-card">
-          <strong>امروز</strong>
-          <p>۵ تسک مهم و ۱ هشدار فوری در انتظار بررسی است.</p>
-        </div>
-        <div className="phone-card">
-          <strong>AI Summary</strong>
-          <p>اولویت امروز: Mofanex، بررسی n8n، و پیگیری یادداشت جلسه.</p>
-        </div>
-        <nav className="phone-nav">
-          <span data-active="true">خانه</span>
-          <span>وظایف</span>
-          <span>پروژه‌ها</span>
-          <span>AI</span>
-        </nav>
-      </div>
-    </section>
-  );
-}
-
-function MiniMetric({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="mini-metric">
-      <strong>{value}</strong>
-      <span>{label}</span>
-    </div>
-  );
+export function StatusDot({ tone }: { tone: Tone }) {
+  return <span className="status-dot" data-tone={tone} aria-hidden="true" />;
 }

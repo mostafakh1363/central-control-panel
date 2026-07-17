@@ -1,40 +1,38 @@
+import { AiConsole } from "@/components/ai-console";
 import { AppShell } from "@/components/app-shell";
-import { Button, PageTitle, Panel } from "@/components/ui";
+import { Badge, LinkButton, PageTitle, Panel } from "@/components/ui";
+import { getDashboardData, sourceLabel, sourceTone } from "@/lib/ai-brain";
 
-export default function AiPage() {
+export const dynamic = "force-dynamic";
+
+export default async function AiPage() {
+  const dashboard = await getDashboardData();
+  const { projects, reminders, alerts } = dashboard.data;
+
   return (
     <AppShell>
       <PageTitle
         eyebrow="AI Operations Assistant"
         title="AI Assistant"
-        actions={<Button variant="primary">New chat</Button>}
+        description="چت عملیاتی برای خلاصه پروژه‌ها، ساخت وظیفه، بررسی لاگ و آماده‌سازی اکشن."
+        actions={
+          <>
+            <Badge tone={sourceTone(dashboard.source)}>{sourceLabel(dashboard.source)}</Badge>
+            <LinkButton href="/tasks" variant="secondary" icon="check">رفتن به وظایف</LinkButton>
+          </>
+        }
       />
 
       <section className="dashboard-grid">
-        <Panel title="چت عملیاتی" description="برای پرسیدن وضعیت، ساخت تسک، خلاصه پروژه و بررسی خطاها" className="span-8">
-          <div className="chat-shell">
-            <div className="chat-message assistant">
-              <strong>AI Assistant</strong>
-              <p>امروز ۶ تسک باز داری. مهم‌ترین مورد: تبدیل خلاصه جلسه دکتر مشکلانی به برنامه پیگیری و بررسی خطای n8n.</p>
-            </div>
-            <div className="chat-message user">
-              <strong>Mostafa</strong>
-              <p>وضعیت پروژه‌های من را خلاصه کن.</p>
-            </div>
-            <label className="chat-input">
-              <input placeholder="پیام یا دستور عملیاتی بنویس..." />
-              <Button variant="primary">Send</Button>
-            </label>
-          </div>
+        <Panel title="چت عملیاتی" description="پیام‌ها از مسیر امن proxy به AI backend ارسال می‌شوند." className="span-8">
+          <AiConsole />
         </Panel>
 
-        <Panel title="Promptهای سریع" description="دستورهای پرکاربرد" className="span-4">
-          <div className="prompt-list">
-            <button>وضعیت همه پروژه‌ها را بده</button>
-            <button>از مکالمه آخر تسک بساز</button>
-            <button>لاگ‌های n8n را بررسی کن</button>
-            <button>یادآوری‌های امروز را خلاصه کن</button>
-            <button>قدم بعدی Mofanex چیست؟</button>
+        <Panel title="Context فعال" description="Context نمایشی فقط از پروژه‌ها و آیتم‌های قابل دسترسی پنل ساخته می‌شود." className="span-4">
+          <div className="context-list">
+            <div><strong>Projects</strong><span>{projects.length ? projects.map((project) => project.name).join("، ") : "داده‌ای دریافت نشد"}</span></div>
+            <div><strong>Today</strong><span>{reminders.length} reminder، {alerts.length} alert</span></div>
+            <div><strong>Safe mode</strong><span>اکشن‌های حساس فقط approval request می‌سازند.</span></div>
           </div>
         </Panel>
       </section>

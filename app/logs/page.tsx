@@ -1,37 +1,34 @@
 import { AppShell } from "@/components/app-shell";
-import { Badge, Button, PageTitle, Panel } from "@/components/ui";
-import { logs } from "@/lib/data";
+import { LogList } from "@/components/log-list";
+import { Badge, EmptyState, LinkButton, PageTitle, Panel } from "@/components/ui";
+import { getLogsData, sourceLabel, sourceTone } from "@/lib/ai-brain";
 
-export default function LogsPage() {
+export const dynamic = "force-dynamic";
+
+export default async function LogsPage() {
+  const result = await getLogsData();
+  const logs = result.data;
+
   return (
     <AppShell>
       <PageTitle
         eyebrow="Operational Logs"
         title="لاگ‌ها"
+        description="رخدادهای سیستم به‌شکل خلاصه، قابل اسکن و قابل پیگیری نمایش داده می‌شوند."
         actions={
           <>
-            <Button variant="secondary">Filter</Button>
-            <Button variant="primary">Export</Button>
+            <Badge tone={sourceTone(result.source)}>{sourceLabel(result.source)}</Badge>
+            <LinkButton href="/servers" variant="secondary" icon="server">سرورها</LinkButton>
+            <LinkButton href="/ai" variant="primary" icon="spark">تحلیل لاگ</LinkButton>
           </>
         }
       />
 
+      {result.error ? <section className="action-status">{result.error}</section> : null}
+
       <section className="dashboard-grid">
-        <Panel title="لاگ‌های سیستم" description="خلاصه‌شده و قابل فهم برای تصمیم‌گیری" className="span-12">
-          <div className="data-table">
-            <div className="data-table__row data-table__head">
-              <span>Time</span><span>Event</span><span>Source</span><span>Status</span><span>Action</span>
-            </div>
-            {logs.map((log) => (
-              <div className="data-table__row" key={`${log.time}-${log.title}`}>
-                <time>{log.time}</time>
-                <strong>{log.title}</strong>
-                <span>{log.description}</span>
-                <Badge tone={log.tone}>{log.status}</Badge>
-                <Button size="sm" variant="secondary">Open</Button>
-              </div>
-            ))}
-          </div>
+        <Panel title="لاگ‌های سیستم" description="روی موبایل هر لاگ به کارت قابل لمس تبدیل می‌شود و فیلترها local کار می‌کنند." className="span-12">
+          {logs.length ? <LogList logs={logs} /> : <EmptyState title="لاگی پیدا نشد" description="endpoint لاگ‌ها داده‌ای برای نمایش برنگرداند." />}
         </Panel>
       </section>
     </AppShell>

@@ -1,52 +1,39 @@
 import { AppShell } from "@/components/app-shell";
-import { Badge, Button, PageTitle, Panel } from "@/components/ui";
-import { reminders, tasks } from "@/lib/data";
+import { ReminderChecklist, TaskChecklist } from "@/components/task-controls";
+import { Badge, EmptyState, LinkButton, PageTitle, Panel } from "@/components/ui";
+import { getRemindersData, getTasksData, sourceLabel, sourceTone } from "@/lib/ai-brain";
 
-export default function TasksPage() {
+export const dynamic = "force-dynamic";
+
+export default async function TasksPage() {
+  const [taskResult, reminderResult] = await Promise.all([getTasksData(), getRemindersData()]);
+  const tasks = taskResult.data;
+  const reminders = reminderResult.data;
+
   return (
     <AppShell>
       <PageTitle
         eyebrow="Task OS"
-        title="وظایف و یادآوری‌ها"
+        title="وظایف من"
+        description="فقط کارهایی که باید انجام شوند، نه backlog فنی سیستم."
         actions={
           <>
-            <Button variant="secondary">Calendar view</Button>
-            <Button variant="primary">تسک جدید</Button>
+            <Badge tone={sourceTone(taskResult.source)}>{sourceLabel(taskResult.source)}</Badge>
+            <LinkButton href="/reminders" variant="secondary" icon="bell">یادآوری‌ها</LinkButton>
+            <LinkButton href="/ai" variant="primary" icon="spark">ساخت task با AI</LinkButton>
           </>
         }
       />
 
+      {taskResult.error ? <section className="action-status">{taskResult.error}</section> : null}
+
       <section className="dashboard-grid">
-        <Panel title="تسک‌های باز" description="استخراج‌شده از جلسه‌ها، پروژه‌ها و دستورهای روزانه" className="span-8">
-          <div className="task-board">
-            {tasks.map((task) => (
-              <article className="task-card" key={task.title}>
-                <Badge tone={task.tone}>{task.project}</Badge>
-                <h3>{task.title}</h3>
-                <p>مسئول: {task.owner} · موعد: {task.due}</p>
-                <div className="row-actions">
-                  <Button size="sm" variant="secondary">Done</Button>
-                  <Button size="sm" variant="ghost">Reschedule</Button>
-                </div>
-              </article>
-            ))}
-          </div>
+        <Panel title="کارهای باز" description="از جلسه‌ها، پروژه‌ها و یادآوری‌ها استخراج شده‌اند." className="span-8">
+          {tasks.length ? <TaskChecklist tasks={tasks} /> : <EmptyState title="فعلاً وظیفه شخصی باز نداری" description="endpoint وظایف داده قابل انجام برای کاربر برنگرداند." />}
         </Panel>
 
-        <Panel title="یادآوری‌ها" description="برنامه امروز" className="span-4">
-          <div className="reminder-list">
-            {reminders.map((item) => (
-              <label className="reminder-row" key={item.id}>
-                <input type="checkbox" />
-                <time>{item.time}</time>
-                <span>
-                  <strong>{item.title}</strong>
-                  <small>{item.project}</small>
-                </span>
-                <i data-priority={item.priority} />
-              </label>
-            ))}
-          </div>
+        <Panel title="یادآوری‌های امروز" description="روی موبایل مثل checklist کار می‌کند." className="span-4">
+          {reminders.length ? <ReminderChecklist reminders={reminders} /> : <EmptyState title="یادآوری باز نداری" description="endpoint یادآوری‌ها داده‌ای برای نمایش برنگرداند." />}
         </Panel>
       </section>
     </AppShell>

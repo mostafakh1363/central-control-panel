@@ -1,0 +1,245 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="1180" viewBox="0 0 1680 1180" role="img" aria-labelledby="title desc">
+  <title id="title">Central Control Panel redesign options</title>
+  <desc id="desc">Three mobile-first redesign options for the Central Control Panel: Command Home, Ops Board, and AI Copilot.</desc>
+  <style>
+    .board {
+      fill: rgb(247, 248, 250);
+    }
+    .label {
+      font-family: Inter, Arial, sans-serif;
+      fill: rgb(13, 17, 23);
+      letter-spacing: 0;
+    }
+    .muted {
+      fill: rgb(91, 100, 114);
+    }
+    .subtle {
+      fill: rgb(123, 132, 148);
+    }
+    .card {
+      fill: rgb(255, 255, 255);
+      stroke: rgb(223, 228, 234);
+      stroke-width: 1;
+    }
+    .panel {
+      fill: rgb(250, 251, 252);
+      stroke: rgb(223, 228, 234);
+      stroke-width: 1;
+    }
+    .soft {
+      fill: rgb(241, 243, 245);
+    }
+    .accent {
+      fill: rgb(10, 102, 255);
+    }
+    .success {
+      fill: rgb(19, 138, 54);
+    }
+    .warning {
+      fill: rgb(154, 103, 0);
+    }
+    .danger {
+      fill: rgb(209, 36, 47);
+    }
+    .outline {
+      fill: none;
+      stroke: rgb(184, 192, 204);
+      stroke-width: 1.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .phone {
+      fill: rgb(11, 13, 16);
+      filter: drop-shadow(0 14px 34px rgba(13, 17, 23, 0.08));
+    }
+    .screen {
+      fill: rgb(247, 248, 250);
+    }
+    .tab {
+      fill: rgb(255, 255, 255);
+      stroke: rgb(223, 228, 234);
+      stroke-width: 1;
+    }
+    .pill {
+      fill: rgba(10, 102, 255, 0.1);
+      stroke: rgba(10, 102, 255, 0.22);
+      stroke-width: 1;
+    }
+    .dark-screen {
+      fill: rgb(11, 13, 16);
+    }
+    .dark-card {
+      fill: rgb(17, 20, 24);
+      stroke: rgb(42, 48, 56);
+      stroke-width: 1;
+    }
+    .dark-muted {
+      fill: rgb(29, 34, 41);
+    }
+    .dark-text {
+      fill: rgb(244, 247, 251);
+    }
+    .dark-subtle {
+      fill: rgb(174, 183, 197);
+    }
+  </style>
+
+  <rect class="board" width="1680" height="1180"/>
+
+  <text class="label" x="64" y="70" font-size="34" font-weight="700">Central Control Panel redesign options</text>
+  <text class="muted" x="64" y="108" font-size="18">Mobile-first options based on UPDOS tokens, dense dashboard rhythm, and touch-friendly controls.</text>
+
+  <g transform="translate(64 150)">
+    <rect class="card" width="500" height="950" rx="18"/>
+    <text class="label" x="28" y="46" font-size="26" font-weight="700">Option A: Command Home</text>
+    <text class="muted" x="28" y="78" font-size="16">Daily mobile control, tasks, quick actions, project scan.</text>
+
+    <g transform="translate(110 120)">
+      <rect class="phone" width="280" height="610" rx="34"/>
+      <rect class="screen" x="14" y="18" width="252" height="574" rx="24"/>
+      <rect class="soft" x="112" y="32" width="56" height="5" rx="3"/>
+      <text class="label" x="30" y="68" font-size="17" font-weight="700">Today</text>
+      <text class="subtle" x="30" y="92" font-size="12">5 tasks · 1 alert · VPS ok</text>
+      <rect class="pill" x="188" y="54" width="56" height="28" rx="14"/>
+      <text class="label" x="203" y="73" font-size="11" font-weight="600">Ask AI</text>
+
+      <rect class="card" x="30" y="116" width="220" height="92" rx="14"/>
+      <circle class="success" cx="54" cy="146" r="8"/>
+      <text class="label" x="72" y="150" font-size="14" font-weight="700">System healthy</text>
+      <text class="muted" x="72" y="172" font-size="11">AI Brain VPS · n8n · API</text>
+      <rect class="soft" x="42" y="188" width="176" height="6" rx="3"/>
+      <rect class="accent" x="42" y="188" width="126" height="6" rx="3"/>
+
+      <text class="label" x="30" y="238" font-size="14" font-weight="700">Quick actions</text>
+      <rect class="card" x="30" y="252" width="66" height="58" rx="12"/>
+      <path class="outline" d="M54 271v20M44 281h20"/>
+      <text class="muted" x="47" y="301" font-size="10">Task</text>
+      <rect class="card" x="106" y="252" width="66" height="58" rx="12"/>
+      <path class="outline" d="M128 272h22M128 282h14M128 292h18"/>
+      <text class="muted" x="122" y="301" font-size="10">Note</text>
+      <rect class="card" x="184" y="252" width="66" height="58" rx="12"/>
+      <path class="outline" d="M206 292c18-18 18-18 0-36M218 270l12 12-12 12"/>
+      <text class="muted" x="200" y="301" font-size="10">Check</text>
+
+      <text class="label" x="30" y="342" font-size="14" font-weight="700">Next work</text>
+      <rect class="panel" x="30" y="356" width="220" height="64" rx="12"/>
+      <circle class="warning" cx="50" cy="382" r="6"/>
+      <text class="label" x="64" y="379" font-size="12" font-weight="700">Follow up padel land</text>
+      <text class="muted" x="64" y="398" font-size="10">Project · Dr Moshkelani</text>
+      <rect class="panel" x="30" y="428" width="220" height="64" rx="12"/>
+      <circle class="accent" cx="50" cy="454" r="6"/>
+      <text class="label" x="64" y="451" font-size="12" font-weight="700">Review Tajikistan market</text>
+      <text class="muted" x="64" y="470" font-size="10">Business research</text>
+
+      <rect class="tab" x="24" y="520" width="232" height="52" rx="18"/>
+      <circle class="accent" cx="54" cy="543" r="8"/>
+      <circle class="soft" cx="100" cy="543" r="8"/>
+      <circle class="soft" cx="146" cy="543" r="8"/>
+      <circle class="soft" cx="192" cy="543" r="8"/>
+      <circle class="soft" cx="230" cy="543" r="8"/>
+      <text class="accent" x="42" y="562" font-size="9">Home</text>
+    </g>
+
+    <g transform="translate(32 790)">
+      <text class="label" x="0" y="0" font-size="16" font-weight="700">Why choose this</text>
+      <text class="muted" x="0" y="30" font-size="14">Best for daily mobile use and fast personal work.</text>
+      <text class="muted" x="0" y="56" font-size="14">Bottom nav stays simple: Home, Tasks, Projects, Alerts, AI.</text>
+      <text class="muted" x="0" y="82" font-size="14">Recommended base if mobile comfort is the priority.</text>
+    </g>
+  </g>
+
+  <g transform="translate(590 150)">
+    <rect class="card" width="500" height="950" rx="18"/>
+    <text class="label" x="28" y="46" font-size="26" font-weight="700">Option B: Ops Board</text>
+    <text class="muted" x="28" y="78" font-size="16">Monitoring-first layout for servers, logs, and incidents.</text>
+
+    <g transform="translate(110 120)">
+      <rect class="phone" width="280" height="610" rx="34"/>
+      <rect class="dark-screen" x="14" y="18" width="252" height="574" rx="24"/>
+      <rect class="dark-muted" x="112" y="32" width="56" height="5" rx="3"/>
+      <text class="dark-text" x="30" y="68" font-size="17" font-weight="700">Ops Board</text>
+      <text class="dark-subtle" x="30" y="92" font-size="12">Live server and workflow health</text>
+
+      <rect class="dark-card" x="30" y="116" width="220" height="112" rx="14"/>
+      <text class="dark-subtle" x="48" y="146" font-size="11">AI Brain VPS</text>
+      <text class="dark-text" x="48" y="180" font-size="34" font-weight="700">73%</text>
+      <text class="dark-subtle" x="118" y="178" font-size="12">CPU peak</text>
+      <path d="M46 203 C72 182, 94 212, 120 190 S168 208, 204 178 S232 198, 238 188" fill="none" stroke="rgb(123, 176, 255)" stroke-width="3" stroke-linecap="round"/>
+
+      <text class="dark-text" x="30" y="258" font-size="14" font-weight="700">Services</text>
+      <rect class="dark-card" x="30" y="272" width="220" height="46" rx="12"/>
+      <circle class="success" cx="50" cy="295" r="6"/>
+      <text class="dark-text" x="64" y="299" font-size="12" font-weight="700">n8n workflows</text>
+      <text class="dark-subtle" x="190" y="299" font-size="11">18 ok</text>
+      <rect class="dark-card" x="30" y="326" width="220" height="46" rx="12"/>
+      <circle class="warning" cx="50" cy="349" r="6"/>
+      <text class="dark-text" x="64" y="353" font-size="12" font-weight="700">PostgreSQL</text>
+      <text class="dark-subtle" x="186" y="353" font-size="11">watch</text>
+
+      <text class="dark-text" x="30" y="404" font-size="14" font-weight="700">Recent logs</text>
+      <rect class="dark-card" x="30" y="418" width="220" height="38" rx="10"/>
+      <text class="dark-subtle" x="48" y="441" font-size="11">09:42 · command-center health ok</text>
+      <rect class="dark-card" x="30" y="464" width="220" height="38" rx="10"/>
+      <text class="dark-subtle" x="48" y="487" font-size="11">09:38 · reminder sync completed</text>
+
+      <rect class="dark-card" x="24" y="520" width="232" height="52" rx="18"/>
+      <circle class="dark-muted" cx="54" cy="543" r="8"/>
+      <circle class="accent" cx="100" cy="543" r="8"/>
+      <circle class="dark-muted" cx="146" cy="543" r="8"/>
+      <circle class="dark-muted" cx="192" cy="543" r="8"/>
+      <circle class="dark-muted" cx="230" cy="543" r="8"/>
+      <text class="dark-subtle" x="84" y="562" font-size="9">Servers</text>
+    </g>
+
+    <g transform="translate(32 790)">
+      <text class="label" x="0" y="0" font-size="16" font-weight="700">Why choose this</text>
+      <text class="muted" x="0" y="30" font-size="14">Best if VPS, n8n, logs, and actions are the core job.</text>
+      <text class="muted" x="0" y="56" font-size="14">Uses dark mode well for monitoring and night checks.</text>
+      <text class="muted" x="0" y="82" font-size="14">Needs a separate friendly task layer for daily work.</text>
+    </g>
+  </g>
+
+  <g transform="translate(1116 150)">
+    <rect class="card" width="500" height="950" rx="18"/>
+    <text class="label" x="28" y="46" font-size="26" font-weight="700">Option C: AI Copilot</text>
+    <text class="muted" x="28" y="78" font-size="16">Assistant-first command app with project context.</text>
+
+    <g transform="translate(110 120)">
+      <rect class="phone" width="280" height="610" rx="34"/>
+      <rect class="screen" x="14" y="18" width="252" height="574" rx="24"/>
+      <rect class="soft" x="112" y="32" width="56" height="5" rx="3"/>
+      <text class="label" x="30" y="68" font-size="17" font-weight="700">AI Assistant</text>
+      <text class="subtle" x="30" y="92" font-size="12">Context: all assigned projects</text>
+
+      <rect class="pill" x="30" y="116" width="220" height="44" rx="14"/>
+      <text class="label" x="48" y="143" font-size="12" font-weight="700">What needs my attention today?</text>
+      <rect class="panel" x="30" y="174" width="220" height="86" rx="14"/>
+      <text class="label" x="48" y="202" font-size="12" font-weight="700">Summary</text>
+      <text class="muted" x="48" y="224" font-size="11">2 business follow-ups, 1 VPS warning,</text>
+      <text class="muted" x="48" y="242" font-size="11">and 3 project notes need review.</text>
+
+      <text class="label" x="30" y="292" font-size="14" font-weight="700">Suggested commands</text>
+      <rect class="card" x="30" y="306" width="220" height="44" rx="12"/>
+      <text class="label" x="48" y="333" font-size="12" font-weight="700">Create follow-up tasks</text>
+      <rect class="card" x="30" y="358" width="220" height="44" rx="12"/>
+      <text class="label" x="48" y="385" font-size="12" font-weight="700">Check server alerts</text>
+      <rect class="card" x="30" y="410" width="220" height="44" rx="12"/>
+      <text class="label" x="48" y="437" font-size="12" font-weight="700">Summarize Mofanex</text>
+
+      <rect class="card" x="30" y="480" width="220" height="52" rx="18"/>
+      <text class="subtle" x="48" y="511" font-size="12">Ask or command...</text>
+      <circle class="accent" cx="222" cy="506" r="14"/>
+      <path d="M216 506h12M224 500l6 6-6 6" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <rect class="tab" x="24" y="546" width="232" height="34" rx="14"/>
+      <text class="accent" x="102" y="568" font-size="10" font-weight="700">AI is the main screen</text>
+    </g>
+
+    <g transform="translate(32 790)">
+      <text class="label" x="0" y="0" font-size="16" font-weight="700">Why choose this</text>
+      <text class="muted" x="0" y="30" font-size="14">Best if the panel should feel like a command assistant.</text>
+      <text class="muted" x="0" y="56" font-size="14">Fast for summaries, task creation, and guided actions.</text>
+      <text class="muted" x="0" y="82" font-size="14">Monitoring should remain pinned as a top status strip.</text>
+    </g>
+  </g>
+</svg>

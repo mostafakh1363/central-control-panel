@@ -1,36 +1,53 @@
+import { ActionRunner } from "@/components/action-runner";
 import { AppShell } from "@/components/app-shell";
-import { Badge, Button, PageTitle, Panel, ProgressBar } from "@/components/ui";
-import { servers } from "@/lib/data";
+import { ServerActions } from "@/components/server-actions";
+import { Badge, EmptyState, LinkButton, PageTitle, Panel, ProgressBar } from "@/components/ui";
+import { getActionsData, getServersData, sourceLabel, sourceTone } from "@/lib/ai-brain";
 
-export default function ServersPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ServersPage() {
+  const [serverResult, actionResult] = await Promise.all([getServersData(), getActionsData()]);
+  const servers = serverResult.data;
+
   return (
     <AppShell>
       <PageTitle
         eyebrow="VPS Monitoring"
         title="سرورها"
+        description="وضعیت منابع، health check و اکشن‌های امن برای سرورها از API واقعی خوانده می‌شود."
         actions={
           <>
-            <Button variant="secondary">Run health check</Button>
-            <Button variant="primary">Add server</Button>
+            <Badge tone={sourceTone(serverResult.source)}>{sourceLabel(serverResult.source)}</Badge>
+            <LinkButton href="/logs" variant="secondary" icon="logs">لاگ‌ها</LinkButton>
+            <LinkButton href="/actions" variant="primary" icon="pulse">اکشن‌ها</LinkButton>
           </>
         }
       />
 
+      {serverResult.error ? <section className="action-status">{serverResult.error}</section> : null}
+
       <section className="dashboard-grid">
-        {servers.map((server) => (
-          <Panel key={server.name} title={server.name} description={server.ip} className="span-6" action={<Badge tone={server.tone}>{server.status}</Badge>}>
-            <div className="resource-stack">
-              <div><span>CPU</span><ProgressBar value={server.cpu} tone={server.tone} /><b>{server.cpu}%</b></div>
-              <div><span>RAM</span><ProgressBar value={server.ram} tone={server.ram > 70 ? "warning" : "success"} /><b>{server.ram}%</b></div>
-              <div><span>Disk</span><ProgressBar value={server.disk} tone={server.disk > 70 ? "warning" : "accent"} /><b>{server.disk}%</b></div>
-            </div>
-            <div className="row-actions">
-              <Button size="sm" variant="secondary">View logs</Button>
-              <Button size="sm" variant="secondary">Check service</Button>
-              <Button size="sm" variant="danger">Restart</Button>
-            </div>
+        {servers.length ? (
+          servers.map((server) => (
+            <Panel key={server.id || server.name} title={server.name} description={`${server.ip}، بروزرسانی ${server.updatedAt}`} className="span-6 server-panel" action={<Badge tone={server.tone}>{server.status}</Badge>}>
+              <div className="resource-stack">
+                <div><span>CPU</span><ProgressBar value={server.cpu} tone={server.tone} /><b>{server.cpu}%</b></div>
+                <div><span>RAM</span><ProgressBar value={server.ram} tone={server.ram > 70 ? "warning" : "success"} /><b>{server.ram}%</b></div>
+                <div><span>Disk</span><ProgressBar value={server.disk} tone={server.disk > 70 ? "warning" : "accent"} /><b>{server.disk}%</b></div>
+              </div>
+              <ServerActions serverId={server.id || server.name} />
+            </Panel>
+          ))
+        ) : (
+          <Panel title="داده سرور پیدا نشد" description="endpoint سرورها داده‌ای برای نمایش برنگرداند." className="span-12">
+            <EmptyState title="سروری برای نمایش نیست" description="کلید API تنظیم شده، ولی لیست سرورها خالی برگشت." />
           </Panel>
-        ))}
+        )}
+
+        <Panel title="اکشن‌های مرتبط" description="اکشن‌های safe و sensitive از API خوانده می‌شوند و اجرای حساس approval می‌خواهد." className="span-12">
+          <ActionRunner actions={actionResult.data} />
+        </Panel>
       </section>
     </AppShell>
   );

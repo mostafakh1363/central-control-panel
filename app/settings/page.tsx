@@ -1,30 +1,42 @@
 import { AppShell } from "@/components/app-shell";
-import { Badge, Button, PageTitle, Panel } from "@/components/ui";
+import { SettingsControls } from "@/components/settings-controls";
+import { Badge, LinkButton, PageTitle, Panel } from "@/components/ui";
+import { getSettingsData, sourceLabel, sourceTone } from "@/lib/ai-brain";
 
-export default function SettingsPage() {
+export const dynamic = "force-dynamic";
+
+export default async function SettingsPage() {
+  const result = await getSettingsData();
+
   return (
     <AppShell>
       <PageTitle
         eyebrow="System Settings"
         title="تنظیمات"
-        actions={<Button variant="primary">Save changes</Button>}
+        description="ظاهر، زبان، نوتیفیکیشن و وضعیت اتصال‌های اصلی پنل."
+        actions={
+          <>
+            <Badge tone={sourceTone(result.source)}>{sourceLabel(result.source)}</Badge>
+            <LinkButton href="/" variant="primary" icon="home">بازگشت به خانه</LinkButton>
+          </>
+        }
       />
 
+      {result.error ? <section className="action-status">{result.error}</section> : null}
+
       <section className="dashboard-grid">
-        <Panel title="تنظیمات اپ" description="ظاهر، نوتیفیکیشن و اتصال‌ها" className="span-6">
-          <div className="settings-list">
-            <label><span>Theme</span><select><option>System</option><option>Light</option><option>Dark</option></select></label>
-            <label><span>Language</span><select><option>Persian / RTL</option><option>English / LTR</option></select></label>
-            <label><span>Notification channel</span><select><option>Telegram + PWA</option><option>PWA only</option><option>Telegram only</option></select></label>
-          </div>
+        <Panel title="تنظیمات اپ" description="این کنترل‌ها مقدار را در backend ذخیره می‌کنند، اگر endpoint فعال باشد." className="span-6">
+          <SettingsControls initialSettings={result.data.settings} />
         </Panel>
 
-        <Panel title="اتصال‌ها" description="در نسخه بعدی به API واقعی وصل می‌شود" className="span-6">
+        <Panel title="اتصال‌ها" description="وضعیت فعلی endpoint ها و سرویس‌های مورد نیاز." className="span-6">
           <div className="connection-list">
-            <div><span>VPS Assistant</span><Badge tone="success">Ready</Badge></div>
-            <div><span>n8n</span><Badge tone="warning">Pending</Badge></div>
-            <div><span>Telegram Bot</span><Badge tone="warning">Pending</Badge></div>
-            <div><span>GitHub</span><Badge tone="warning">Pending</Badge></div>
+            {result.data.connections.map((connection) => (
+              <div key={connection.label}>
+                <span>{connection.label}</span>
+                <Badge tone={connection.tone}>{connection.status}</Badge>
+              </div>
+            ))}
           </div>
         </Panel>
       </section>

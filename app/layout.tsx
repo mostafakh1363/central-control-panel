@@ -5,7 +5,12 @@ export const metadata: Metadata = {
   title: "Mostafa Command Center",
   description: "A personal AI operations command center for projects, servers, reminders, logs, and safe actions.",
   applicationName: "Mostafa Command Center",
-  manifest: "/manifest.json"
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    title: "MCC",
+    statusBarStyle: "default"
+  }
 };
 
 export const viewport: Viewport = {
