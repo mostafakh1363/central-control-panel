@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button, LinkButton } from "@/components/ui";
+import { panelClientPath } from "@/lib/panel-client";
 
 export function WorkflowActions({ workflowId }: { workflowId: string }) {
   const [message, setMessage] = useState("");
@@ -12,7 +13,7 @@ export function WorkflowActions({ workflowId }: { workflowId: string }) {
     setMessage("در حال ثبت درخواست اجرای workflow...");
 
     try {
-      const response = await fetch(`/api/panel/workflows/${encodeURIComponent(workflowId)}/execute-request`, {
+      const response = await fetch(panelClientPath(`/api/panel/workflows/${encodeURIComponent(workflowId)}/execute-request`), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ source: "central-control-panel" })

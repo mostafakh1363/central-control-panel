@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button, LinkButton } from "@/components/ui";
+import { panelClientPath } from "@/lib/panel-client";
 
 type ServerActionState = {
   pending?: "health" | "restart";
@@ -16,7 +17,7 @@ export function ServerActions({ serverId }: { serverId: string }) {
     const endpoint = action === "health" ? "health-check" : "restart-request";
 
     try {
-      const response = await fetch(`/api/panel/servers/${encodeURIComponent(serverId)}/${endpoint}`, {
+      const response = await fetch(panelClientPath(`/api/panel/servers/${encodeURIComponent(serverId)}/${endpoint}`), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ source: "central-control-panel" })

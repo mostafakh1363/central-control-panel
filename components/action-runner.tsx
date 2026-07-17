@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Badge, Button, LinkButton } from "@/components/ui";
 import { safeActions as fallbackActions, type SafeAction } from "@/lib/data";
+import { panelClientPath } from "@/lib/panel-client";
 
 type RunnerState = {
   pendingId?: string;
@@ -93,7 +94,7 @@ async function requestApproval(action: SafeAction): Promise<{ ok: boolean; messa
 
 async function requestPanel(path: string, init: RequestInit): Promise<{ ok: true; data: unknown } | { ok: false; message: string }> {
   try {
-    const response = await fetch(path, {
+    const response = await fetch(panelClientPath(path), {
       ...init,
       headers: {
         "Content-Type": "application/json",

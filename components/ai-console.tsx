@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { Button } from "@/components/ui";
+import { panelClientPath } from "@/lib/panel-client";
 
 const prompts = [
   "وضعیت همه پروژه‌ها را خلاصه کن",
@@ -87,7 +88,7 @@ export function AiConsole() {
 
 async function askAi(message: string) {
   try {
-    const response = await fetch("/api/panel/ai/chat", {
+    const response = await fetch(panelClientPath("/api/panel/ai/chat"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

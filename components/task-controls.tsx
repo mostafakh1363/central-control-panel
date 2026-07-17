@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Badge, Button } from "@/components/ui";
+import { panelClientPath } from "@/lib/panel-client";
 import type { Reminder, Task } from "@/lib/data";
 
 type StatusState = {
@@ -114,7 +115,7 @@ export function ReminderChecklist({ reminders }: { reminders: Reminder[] }) {
 
 async function postPanel(path: string, body: unknown): Promise<{ ok: true; message?: string } | { ok: false; message: string }> {
   try {
-    const response = await fetch(path, {
+    const response = await fetch(panelClientPath(path), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body)

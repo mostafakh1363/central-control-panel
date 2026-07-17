@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Badge, Button } from "@/components/ui";
 import type { SettingsValues } from "@/lib/ai-brain";
+import { panelClientPath } from "@/lib/panel-client";
 
 const defaultSettings: SettingsValues = {
   theme: "System",
@@ -18,7 +19,7 @@ export function SettingsControls({ initialSettings = defaultSettings }: { initia
     setStatus("saving");
 
     try {
-      const response = await fetch("/api/panel/settings", {
+      const response = await fetch(panelClientPath("/api/panel/settings"), {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(settings)
