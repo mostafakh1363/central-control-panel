@@ -11,9 +11,9 @@ export default async function ActionsPage() {
   return (
     <AppShell>
       <PageTitle
-        eyebrow="Safe Action Runner"
-        title="اکشن‌ها"
-        description="اکشن‌های خواندنی مستقیم feedback می‌دهند و اکشن‌های حساس فقط درخواست تأیید می‌سازند."
+        eyebrow="اجرای اقدام امن"
+        title="اقدام‌ها"
+        description="اقدام‌های خواندنی نتیجه را مستقیم نشان می‌دهند و اقدام‌های حساس فقط درخواست تأیید می‌سازند."
         actions={
           <>
             <Badge tone={sourceTone(result.source)}>{sourceLabel(result.source)}</Badge>
@@ -25,7 +25,7 @@ export default async function ActionsPage() {
       {result.error ? <section className="action-status">{result.error}</section> : null}
 
       <section className="dashboard-grid">
-        <Panel title="دستورهای امن و حساس" description="لیست اکشن‌ها از backend خوانده می‌شود و اجرای حساس approval لازم دارد." className="span-12">
+        <Panel title="دستورهای امن و حساس" description="لیست اقدام‌ها از بک‌اند خوانده می‌شود و اجرای حساس تأیید جداگانه لازم دارد." className="span-12">
           <ActionRunner actions={result.data} />
         </Panel>
       </section>

@@ -877,6 +877,14 @@ svg {
   gap: var(--updos-space-3);
 }
 
+.telegram-overview-strip,
+.telegram-status-grid,
+.telegram-source-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: var(--updos-space-3);
+}
+
 .summary-item {
   min-width: 0;
   display: grid;
@@ -896,6 +904,101 @@ svg {
 
 .summary-item strong {
   font-size: 1.35rem;
+}
+
+.telegram-source-card,
+.telegram-post-card {
+  min-width: 0;
+  display: grid;
+  gap: var(--updos-space-3);
+  padding: var(--updos-space-4);
+  border: 1px solid var(--updos-color-border);
+  border-radius: var(--updos-radius-lg);
+  background: var(--updos-color-surface-subtle);
+}
+
+.telegram-source-card > div:first-child,
+.telegram-post-card__header {
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--updos-space-3);
+}
+
+.telegram-source-card strong,
+.telegram-post-card strong,
+.telegram-signal-list strong {
+  color: var(--updos-color-text);
+}
+
+.telegram-source-card span,
+.telegram-post-card span,
+.telegram-post-card p,
+.telegram-signal-list {
+  color: var(--updos-color-text-muted);
+}
+
+.telegram-post-list,
+.telegram-log-stack,
+.telegram-command-stack {
+  display: grid;
+  gap: var(--updos-space-3);
+}
+
+.telegram-post-list--compact {
+  max-block-size: 42rem;
+  overflow: auto;
+  padding-inline-end: var(--updos-space-1);
+}
+
+.telegram-post-card[data-compact="true"] {
+  padding: var(--updos-space-3);
+}
+
+.telegram-post-card__header > div {
+  min-width: 0;
+  display: grid;
+  gap: var(--updos-space-1);
+}
+
+.telegram-post-card p {
+  margin: 0;
+  line-height: 1.7;
+}
+
+.telegram-post-card__meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+  gap: var(--updos-space-3);
+  margin: 0;
+}
+
+.telegram-signal-list {
+  display: grid;
+  gap: var(--updos-space-2);
+  font-size: 0.875rem;
+}
+
+.telegram-signal-list > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--updos-space-2);
+}
+
+.telegram-command-stack code {
+  display: block;
+  direction: ltr;
+  unicode-bidi: plaintext;
+  overflow-x: auto;
+  padding: var(--updos-space-3);
+  border: 1px solid var(--updos-color-border);
+  border-radius: var(--updos-radius-md);
+  background: var(--updos-color-surface-muted);
+  color: var(--updos-color-text);
+  font-family: var(--updos-font-mono);
+  font-size: 0.78rem;
+  text-align: left;
 }
 
 .cards-grid,

@@ -26,7 +26,7 @@ export function Topbar() {
           <Icon name="moon" />
         </Link>
         <LinkButton href="/ai" variant="primary" icon="spark">
-          Ask AI
+          پرسش از AI
         </LinkButton>
       </div>
     </header>

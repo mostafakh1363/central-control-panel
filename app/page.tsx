@@ -3,26 +3,28 @@ import { Icon } from "@/components/icons";
 import { ReminderChecklist } from "@/components/task-controls";
 import { Badge, EmptyState, LinkButton, MetricCard, PageTitle, Panel, ProgressBar, StatusDot } from "@/components/ui";
 import { getDashboardData, sourceLabel, sourceTone } from "@/lib/ai-brain";
+import { getTelegramFinancialData } from "@/lib/telegram-financial";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const dashboard = await getDashboardData();
+  const [dashboard, telegramFinancial] = await Promise.all([getDashboardData(), getTelegramFinancialData()]);
   const { alerts, logs, metrics, projects, reminders, servers } = dashboard.data;
   const primaryServer = servers[0];
+  const telegram = telegramFinancial.data;
 
   return (
     <AppShell>
       <PageTitle
         eyebrow="مرکز مانیتورینگ"
         title="وضعیت امروز"
-        description="نمای سریع پروژه‌ها، سرورها، وظایف، هشدارها و اکشن‌های روزانه از پنل مرکزی."
+        description="نمای سریع پروژه‌ها، سرورها، وظایف، هشدارها و اقدام‌های روزانه از پنل مرکزی."
         actions={
           <>
             <Badge tone={sourceTone(dashboard.source)}>{sourceLabel(dashboard.source)}</Badge>
-            <LinkButton href="/tasks" variant="secondary" icon="plus">وظیفه جدید</LinkButton>
-            <LinkButton href="/servers" variant="secondary" icon="pulse">چک سرورها</LinkButton>
-            <LinkButton href="/ai" variant="primary" icon="spark">Ask AI</LinkButton>
+            <LinkButton href="/tasks" variant="secondary" icon="plus">ثبت وظیفه</LinkButton>
+            <LinkButton href="/servers" variant="secondary" icon="pulse">بررسی سرورها</LinkButton>
+            <LinkButton href="/ai" variant="primary" icon="spark">پرسش از AI</LinkButton>
           </>
         }
       />
@@ -30,11 +32,11 @@ export default async function HomePage() {
       {dashboard.error ? <section className="action-status">{dashboard.error}</section> : null}
 
       {primaryServer ? (
-        <section className="mobile-command-card" aria-label="خلاصه موبایل">
+        <section className="mobile-command-card" aria-label="خلاصه وضعیت موبایل">
           <div>
-            <span>وضعیت زنده</span>
+            <span>وضعیت لحظه‌ای</span>
             <strong>{primaryServer.status}</strong>
-            <small>{primaryServer.name}، آخرین بروزرسانی {primaryServer.updatedAt}</small>
+            <small>{primaryServer.name}، آخرین به‌روزرسانی {primaryServer.updatedAt}</small>
           </div>
           <LinkButton href="/servers" variant="primary" size="sm" icon="arrow">جزئیات</LinkButton>
         </section>
@@ -47,7 +49,31 @@ export default async function HomePage() {
       </section>
 
       <section className="dashboard-grid">
-        <Panel title="مانیتورینگ سرورها" description="منابع اصلی و وضعیت پاسخ‌دهی سرویس‌ها." action={<LinkButton href="/servers" variant="ghost" size="sm">همه سرورها</LinkButton>} className="span-6">
+        <Panel title="مانیتور مالی تلگرام" description="آخرین وضعیت کانال‌های مالی، پست‌های تحلیل‌شده و خطاهای نیازمند بررسی." action={<LinkButton href="/telegram-financial" variant="ghost" size="sm">مشاهده مانیتور</LinkButton>} className="span-12">
+          <div className="telegram-overview-strip">
+            <article className="summary-item">
+              <span>وضعیت جمع‌آوری داده</span>
+              <strong>{telegram.health.status}</strong>
+              <Badge tone={telegram.health.status === "ok" ? "success" : "warning"}>{telegramFinancial.source === "live" ? "زنده" : "داده پشتیبان"}</Badge>
+            </article>
+            <article className="summary-item">
+              <span>کانال‌های مجاز</span>
+              <strong>{telegram.health.allowlistCount}</strong>
+              <Badge tone={telegram.health.allowlistCount ? "success" : "warning"}>منبع</Badge>
+            </article>
+            <article className="summary-item">
+              <span>پست‌های تحلیل‌شده</span>
+              <strong>{telegram.analyzedPosts.length}</strong>
+              <Badge tone={telegram.analyzedPosts.length ? "success" : "accent"}>تحلیل</Badge>
+            </article>
+            <article className="summary-item">
+              <span>خطاهای اخیر</span>
+              <strong>{telegram.failedPosts.length}</strong>
+              <Badge tone={telegram.failedPosts.length ? "danger" : "success"}>خطا</Badge>
+            </article>
+          </div>
+        </Panel>
+        <Panel title="مانیتورینگ سرورها" description="منابع اصلی و وضعیت پاسخ‌دهی سرویس‌ها." action={<LinkButton href="/servers" variant="ghost" size="sm">مشاهده سرورها</LinkButton>} className="span-6">
           {servers.length ? (
             <div className="server-list">
               {servers.map((server) => (
@@ -66,11 +92,11 @@ export default async function HomePage() {
               ))}
             </div>
           ) : (
-            <EmptyState title="داده سرور پیدا نشد" description="اتصال برقرار است، ولی endpoint سرورها داده‌ای برنگرداند." />
+            <EmptyState title="داده‌ای برای سرورها پیدا نشد" description="اتصال برقرار است، ولی مسیر API سرورها داده‌ای برنگرداند." />
           )}
         </Panel>
 
-        <Panel title="پروژه‌های فعال" description="پروژه‌هایی که الان نیاز به توجه دارند." action={<LinkButton href="/projects" variant="ghost" size="sm">همه پروژه‌ها</LinkButton>} className="span-6">
+        <Panel title="پروژه‌های فعال" description="پروژه‌هایی که الان نیاز به توجه دارند." action={<LinkButton href="/projects" variant="ghost" size="sm">مشاهده پروژه‌ها</LinkButton>} className="span-6">
           {projects.length ? (
             <div className="project-list">
               {projects.slice(0, 4).map((project) => (
@@ -88,15 +114,15 @@ export default async function HomePage() {
               ))}
             </div>
           ) : (
-            <EmptyState title="پروژه‌ای پیدا نشد" description="endpoint پروژه‌ها داده‌ای برای نمایش برنگرداند." />
+            <EmptyState title="پروژه‌ای پیدا نشد" description="مسیر API پروژه‌ها داده‌ای برای نمایش برنگرداند." />
           )}
         </Panel>
 
-        <Panel title="یادآوری‌های امروز" description="این بخش روی موبایل قابل تیک‌زدن است." action={<LinkButton href="/reminders" variant="ghost" size="sm">مدیریت</LinkButton>} className="span-4">
+        <Panel title="یادآوری‌های امروز" description="این بخش روی موبایل با لمس مستقیم قابل انجام است." action={<LinkButton href="/reminders" variant="ghost" size="sm">مدیریت</LinkButton>} className="span-4">
           {reminders.length ? <ReminderChecklist reminders={reminders.slice(0, 4)} /> : <EmptyState title="یادآوری باز نداری" description="فعلاً یادآوری باز از API دریافت نشد." />}
         </Panel>
 
-        <Panel title="لاگ‌های اخیر" description="رخدادهای مهم سیستم و workflow ها." action={<LinkButton href="/logs" variant="ghost" size="sm">همه لاگ‌ها</LinkButton>} className="span-4">
+        <Panel title="لاگ‌های اخیر" description="رخدادهای مهم سیستم و گردش‌کارها." action={<LinkButton href="/logs" variant="ghost" size="sm">مشاهده لاگ‌ها</LinkButton>} className="span-4">
           {logs.length ? (
             <div className="event-list">
               {logs.slice(0, 4).map((log) => (
@@ -113,11 +139,11 @@ export default async function HomePage() {
               ))}
             </div>
           ) : (
-            <EmptyState title="لاگی پیدا نشد" description="endpoint لاگ‌ها داده‌ای برای نمایش برنگرداند." />
+            <EmptyState title="لاگی پیدا نشد" description="مسیر API لاگ‌ها داده‌ای برای نمایش برنگرداند." />
           )}
         </Panel>
 
-        <Panel title="هشدارهای مهم" description="هشدارهایی که نیازمند تصمیم یا پیگیری هستند." action={<LinkButton href="/actions" variant="ghost" size="sm">اکشن‌ها</LinkButton>} className="span-4">
+        <Panel title="هشدارهای مهم" description="هشدارهایی که نیازمند تصمیم یا پیگیری هستند." action={<LinkButton href="/actions" variant="ghost" size="sm">اقدام‌ها</LinkButton>} className="span-4">
           {alerts.length ? (
             <div className="alert-list">
               {alerts.map((alert) => (
@@ -134,7 +160,7 @@ export default async function HomePage() {
               ))}
             </div>
           ) : (
-            <EmptyState title="هشدار مهمی نیست" description="از داده زنده هشدار مهمی استخراج نشد." />
+            <EmptyState title="هشدار مهمی نیست" description="از داده زنده پنل هشدار مهمی استخراج نشد." />
           )}
         </Panel>
       </section>

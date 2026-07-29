@@ -111,11 +111,12 @@ export const navItems: NavItem[] = [
   { label: "وظایف", href: "/tasks", icon: "check", mobile: true },
   { label: "پروژه‌ها", href: "/projects", icon: "folder", mobile: true },
   { label: "سرورها", href: "/servers", icon: "server", mobile: true },
-  { label: "هوش مصنوعی", href: "/ai", icon: "spark", mobile: true },
+  { label: "دستیار AI", href: "/ai", icon: "spark", mobile: true },
+  { label: "مانیتور مالی", href: "/telegram-financial", icon: "pulse" },
   { label: "اتوماسیون", href: "/n8n", icon: "workflow" },
   { label: "مکالمات", href: "/conversations", icon: "message" },
   { label: "لاگ‌ها", href: "/logs", icon: "logs" },
-  { label: "اکشن‌ها", href: "/actions", icon: "bolt" },
+  { label: "اقدام‌ها", href: "/actions", icon: "bolt" },
   { label: "تنظیمات", href: "/settings", icon: "settings" }
 ];
 
@@ -178,7 +179,7 @@ export const servers: Server[] = [
     href: "/servers"
   },
   {
-    name: "n8n Server",
+    name: "سرور n8n",
     ip: "103.245.67.91",
     cpu: 36,
     ram: 78,
@@ -189,7 +190,7 @@ export const servers: Server[] = [
     href: "/n8n"
   },
   {
-    name: "Backup Node",
+    name: "سرور بکاپ",
     ip: "103.245.67.92",
     cpu: 12,
     ram: 28,
@@ -209,7 +210,7 @@ export const projects: Project[] = [
     status: "در جریان",
     progress: 72,
     tone: "accent",
-    owner: "Mostafa",
+    owner: "مصطفی",
     nextStep: "پیگیری تأمین‌کننده‌های باز و تکمیل ایمیل‌های بعدی.",
     openTasks: 8
   },
@@ -220,7 +221,7 @@ export const projects: Project[] = [
     status: "فعال",
     progress: 58,
     tone: "success",
-    owner: "Mostafa",
+    owner: "مصطفی",
     nextStep: "بررسی چرخه‌های رد و تأیید در n8n.",
     openTasks: 5
   },
@@ -231,29 +232,29 @@ export const projects: Project[] = [
     status: "متصل",
     progress: 84,
     tone: "accent",
-    owner: "Mostafa",
+    owner: "مصطفی",
     nextStep: "وصل‌کردن کامل پنل به داده‌های زنده سرور.",
     openTasks: 4
   },
   {
     slug: "n8n",
-    name: "n8n Automations",
-    description: "اجرای workflow ها، خطاها، گزارش‌ها و اکشن‌های عملیاتی.",
+    name: "اتوماسیون‌های n8n",
+    description: "اجرای گردش‌کارها، خطاها، گزارش‌ها و اقدام‌های عملیاتی.",
     status: "هشدار",
     progress: 46,
     tone: "warning",
-    owner: "Mostafa",
-    nextStep: "بررسی آخرین خطای Google Sheets node.",
+    owner: "مصطفی",
+    nextStep: "بررسی آخرین خطای نود Google Sheets.",
     openTasks: 3
   },
   {
     slug: "dr-moshkelani",
-    name: "Dr. Moshkelani",
+    name: "دکتر مشکلانی",
     description: "پدل، تاجیکستان، زمین شمال، پارک فناوری و ایده‌های تجاری جلسه.",
     status: "جدید",
     progress: 18,
     tone: "warning",
-    owner: "Mostafa / Dr.",
+    owner: "مصطفی و دکتر",
     nextStep: "تبدیل خلاصه جلسه به برنامه پیگیری قابل اجرا.",
     openTasks: 9
   }
@@ -264,7 +265,7 @@ export const reminders: Reminder[] = [
     id: "r1",
     time: "09:00",
     title: "پیگیری زمین برای پدل و آماده‌سازی طرح اولیه",
-    project: "Dr. Moshkelani",
+    project: "دکتر مشکلانی",
     priority: "high",
     status: "open"
   },
@@ -272,7 +273,7 @@ export const reminders: Reminder[] = [
     id: "r2",
     time: "11:00",
     title: "هماهنگی تاجیکستان و بررسی نیاز بازار",
-    project: "Market Research",
+    project: "تحقیق بازار",
     priority: "medium",
     status: "open"
   },
@@ -288,7 +289,7 @@ export const reminders: Reminder[] = [
     id: "r4",
     time: "16:00",
     title: "پیگیری سرمایه‌گذار برای زمین شمال",
-    project: "Investment",
+    project: "سرمایه‌گذاری",
     priority: "low",
     status: "open"
   },
@@ -296,7 +297,7 @@ export const reminders: Reminder[] = [
     id: "r5",
     time: "18:00",
     title: "ارسال اپ مالی برای دکتر و آماده‌سازی توضیح استفاده",
-    project: "Financial App",
+    project: "اپ مالی",
     priority: "high",
     status: "open"
   }
@@ -306,16 +307,16 @@ export const tasks: Task[] = [
   {
     id: "t1",
     title: "زمین مناسب برای پدل پیدا شود و طرح اولیه آماده شود.",
-    project: "Dr. Moshkelani",
-    owner: "Mostafa",
+    project: "دکتر مشکلانی",
+    owner: "مصطفی",
     due: "این هفته",
     tone: "warning"
   },
   {
     id: "t2",
     title: "نیاز بازار تاجیکستان بررسی و مسیر هماهنگی مشخص شود.",
-    project: "Market Research",
-    owner: "Dr. Moshkelani",
+    project: "تحقیق بازار",
+    owner: "دکتر مشکلانی",
     due: "این هفته",
     tone: "accent"
   },
@@ -323,15 +324,15 @@ export const tasks: Task[] = [
     id: "t3",
     title: "کالاهای کمیاب ایران و بازار احتمالی آن‌ها تحلیل شود.",
     project: "Mofanex",
-    owner: "Dr. Moshkelani",
+    owner: "دکتر مشکلانی",
     due: "باز",
     tone: "accent"
   },
   {
     id: "t4",
     title: "برای زمین شمال سرمایه‌گذار احتمالی پیدا شود.",
-    project: "Investment",
-    owner: "Mostafa",
+    project: "سرمایه‌گذاری",
+    owner: "مصطفی",
     due: "باز",
     tone: "warning"
   },
@@ -339,15 +340,15 @@ export const tasks: Task[] = [
     id: "t5",
     title: "طرح همساده‌ها از نظر بازاریابی، سهم بازار و نمونه خارجی بررسی شود.",
     project: "Hamshadeha",
-    owner: "Mostafa",
+    owner: "مصطفی",
     due: "باز",
     tone: "success"
   },
   {
     id: "t6",
     title: "پارک فناوری اصفهان و فولادشهر برای گرفتن زمین دنبال شود.",
-    project: "Land / Tech Park",
-    owner: "Mostafa",
+    project: "زمین و پارک فناوری",
+    owner: "مصطفی",
     due: "باز",
     tone: "warning"
   }
@@ -356,8 +357,8 @@ export const tasks: Task[] = [
 export const logs: LogEvent[] = [
   {
     id: "l1",
-    title: "Backup completed",
-    description: "Backup Node",
+    title: "بکاپ انجام شد",
+    description: "سرور بکاپ",
     status: "موفق",
     time: "22:41",
     tone: "success",
@@ -365,8 +366,8 @@ export const logs: LogEvent[] = [
   },
   {
     id: "l2",
-    title: "n8n workflow executed",
-    description: "n8n Automations",
+    title: "گردش‌کار n8n اجرا شد",
+    description: "اتوماسیون‌های n8n",
     status: "موفق",
     time: "21:10",
     tone: "success",
@@ -374,8 +375,8 @@ export const logs: LogEvent[] = [
   },
   {
     id: "l3",
-    title: "Meeting note captured",
-    description: "Dr. Moshkelani",
+    title: "یادداشت جلسه ثبت شد",
+    description: "دکتر مشکلانی",
     status: "جدید",
     time: "20:55",
     tone: "accent",
@@ -383,7 +384,7 @@ export const logs: LogEvent[] = [
   },
   {
     id: "l4",
-    title: "Google Sheets node warning",
+    title: "هشدار در نود Google Sheets",
     description: "CentralEstate Research",
     status: "هشدار",
     time: "18:12",
@@ -392,7 +393,7 @@ export const logs: LogEvent[] = [
   },
   {
     id: "l5",
-    title: "Security scan completed",
+    title: "اسکن امنیتی انجام شد",
     description: "AI Brain VPS",
     status: "موفق",
     time: "16:34",
@@ -417,7 +418,7 @@ export const alerts: Alert[] = [
     href: "/servers"
   },
   {
-    title: "خطای workflow اخیر",
+    title: "خطای اخیر گردش‌کار",
     description: "CentralEstate Research",
     meta: "۱ مورد",
     tone: "danger",
@@ -427,7 +428,7 @@ export const alerts: Alert[] = [
 
 export const workflows: Workflow[] = [
   {
-    name: "CentralEstate Telegram Command Center",
+    name: "مرکز فرمان تلگرام CentralEstate",
     project: "CentralEstate",
     lastRun: "امروز 09:40",
     status: "موفق",
@@ -435,7 +436,7 @@ export const workflows: Workflow[] = [
     href: "/n8n"
   },
   {
-    name: "Research & Idea Intelligence Engine",
+    name: "موتور تحقیق و ایده‌پردازی",
     project: "CentralEstate",
     lastRun: "امروز 08:10",
     status: "هشدار",
@@ -443,7 +444,7 @@ export const workflows: Workflow[] = [
     href: "/logs"
   },
   {
-    name: "Mofanex Supplier Follow-up",
+    name: "پیگیری تأمین‌کننده‌های Mofanex",
     project: "Mofanex",
     lastRun: "دیروز 18:00",
     status: "آماده",
@@ -451,7 +452,7 @@ export const workflows: Workflow[] = [
     href: "/actions"
   },
   {
-    name: "Daily AI Brain Summary",
+    name: "خلاصه روزانه AI Brain",
     project: "AI Brain",
     lastRun: "امروز 07:00",
     status: "موفق",
@@ -463,31 +464,31 @@ export const workflows: Workflow[] = [
 export const conversations: Conversation[] = [
   {
     person: "دکتر مشکلانی",
-    project: "Dr. Moshkelani",
+    project: "دکتر مشکلانی",
     summary: "موضوع‌های پدل، تاجیکستان، بازار ایران، زمین شمال، گروه ایتا، همساده‌ها، پارک فناوری و اپ مالی ثبت شد.",
     nextAction: "ساخت وظیفه‌های تفکیک‌شده و برنامه پیگیری.",
     tone: "accent"
   },
   {
-    person: "Supplier - Valves",
+    person: "تأمین‌کننده شیرآلات",
     project: "Mofanex",
-    summary: "موجودی اولیه بررسی شده و قیمت و availability باید پیگیری شود.",
-    nextAction: "ارسال follow-up email.",
+    summary: "موجودی اولیه بررسی شده و قیمت و امکان تأمین باید پیگیری شود.",
+    nextAction: "ارسال ایمیل پیگیری.",
     tone: "warning"
   },
   {
-    person: "CentralEstate Operator",
+    person: "اپراتور CentralEstate",
     project: "CentralEstate",
-    summary: "وضعیت workflow های محتوا و approval loop بررسی شد.",
-    nextAction: "تست reject feedback.",
+    summary: "وضعیت گردش‌کارهای محتوا و چرخه تأیید بررسی شد.",
+    nextAction: "تست بازخورد رد محتوا.",
     tone: "success"
   }
 ];
 
 export const safeActions: SafeAction[] = [
-  { id: "check_vps_status", title: "Check VPS status", description: "خواندن وضعیت سرورها بدون تغییر", tone: "success", sensitive: false, href: "/servers" },
-  { id: "view_n8n_logs", title: "View n8n logs", description: "دیدن آخرین خطاها و اجرای workflow ها", tone: "accent", sensitive: false, href: "/logs" },
-  { id: "run_backup", title: "Run backup", description: "نیازمند تأیید قبل از اجرا", tone: "warning", sensitive: true, href: "/actions" },
-  { id: "restart_n8n", title: "Restart n8n", description: "اکشن حساس روی سرور", tone: "danger", sensitive: true, href: "/actions" },
-  { id: "generate_daily_summary", title: "Generate daily summary", description: "خلاصه امن از پروژه‌ها و هشدارها", tone: "accent", sensitive: false, href: "/ai" }
+  { id: "check_vps_status", title: "بررسی وضعیت VPS", description: "خواندن وضعیت سرورها بدون تغییر", tone: "success", sensitive: false, href: "/servers" },
+  { id: "view_n8n_logs", title: "مشاهده لاگ‌های n8n", description: "دیدن آخرین خطاها و اجرای گردش‌کارها", tone: "accent", sensitive: false, href: "/logs" },
+  { id: "run_backup", title: "اجرای بکاپ", description: "نیازمند تأیید قبل از اجرا", tone: "warning", sensitive: true, href: "/actions" },
+  { id: "restart_n8n", title: "ری‌استارت n8n", description: "اقدام حساس روی سرور", tone: "danger", sensitive: true, href: "/actions" },
+  { id: "generate_daily_summary", title: "ساخت خلاصه روزانه", description: "خلاصه امن از پروژه‌ها و هشدارها", tone: "accent", sensitive: false, href: "/ai" }
 ];

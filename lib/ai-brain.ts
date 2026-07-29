@@ -22,7 +22,7 @@ import {
   type Workflow
 } from "@/lib/data";
 
-type ApiObject = Record<string, any>;
+export type ApiObject = Record<string, any>;
 
 export type DataSource = "live" | "fallback";
 
@@ -56,7 +56,7 @@ type DashboardData = {
 const DEFAULT_BASE_URL = "https://ai-brain-api.moe-central.xyz";
 
 export function sourceLabel(source: DataSource) {
-  return source === "live" ? "Live AI Brain" : "Fallback data";
+  return source === "live" ? "داده زنده AI Brain" : "داده پشتیبان";
 }
 
 export function sourceTone(source: DataSource): Tone {
@@ -100,7 +100,7 @@ export async function getDashboardData(): Promise<LiveData<DashboardData>> {
       {
         label: "وظایف باز",
         value: String(numberValue(counts.open_tasks, fallbackTasks.length)),
-        description: "از رجیستری وظایف AI Brain",
+        description: "از فهرست وظایف AI Brain",
         tone: "warning",
         href: "/tasks",
         icon: "check"
@@ -108,7 +108,7 @@ export async function getDashboardData(): Promise<LiveData<DashboardData>> {
       {
         label: "پروژه‌ها",
         value: String(numberValue(counts.projects, projects.length)),
-        description: "پروژه‌های متصل به حافظه",
+        description: "پروژه‌های متصل به حافظه عملیاتی",
         tone: "accent",
         href: "/projects",
         icon: "folder"
@@ -116,7 +116,7 @@ export async function getDashboardData(): Promise<LiveData<DashboardData>> {
       {
         label: "یادآوری‌ها",
         value: String(numberValue(counts.open_reminders, reminderRows.length)),
-        description: "یادآوری‌های باز",
+        description: "یادآوری‌های باز پنل",
         tone: "accent",
         href: "/reminders",
         icon: "bell"
@@ -186,10 +186,10 @@ export async function getSettingsData(): Promise<LiveData<{ settings: SettingsVa
         notification: "Telegram + PWA"
       },
       connections: [
-        { label: "AI Brain API", status: "Not configured", tone: "warning" },
-        { label: "Database", status: "Unknown", tone: "warning" },
-        { label: "n8n", status: "Unknown", tone: "warning" },
-        { label: "Telegram Bot", status: "Unknown", tone: "warning" }
+        { label: "AI Brain API", status: "تنظیم نشده", tone: "warning" },
+        { label: "پایگاه داده", status: "نامشخص", tone: "warning" },
+        { label: "n8n", status: "نامشخص", tone: "warning" },
+        { label: "بات تلگرام", status: "نامشخص", tone: "warning" }
       ]
     }, settings.error || connections.error);
   }
@@ -205,9 +205,9 @@ export async function getSettingsData(): Promise<LiveData<{ settings: SettingsVa
   });
 }
 
-async function apiGet<T>(path: string): Promise<{ ok: true; data: T } | { ok: false; error: string }> {
+export async function apiGet<T>(path: string): Promise<{ ok: true; data: T } | { ok: false; error: string }> {
   const apiKey = panelApiKey();
-  if (!apiKey) return { ok: false, error: "AI Brain API key is not configured." };
+  if (!apiKey) return { ok: false, error: "کلید AI Brain API برای پنل تنظیم نشده است." };
 
   try {
     const response = await fetch(new URL(path, backendBaseUrl()), {
@@ -218,10 +218,10 @@ async function apiGet<T>(path: string): Promise<{ ok: true; data: T } | { ok: fa
       }
     });
 
-    if (!response.ok) return { ok: false, error: `AI Brain API returned ${response.status}.` };
+    if (!response.ok) return { ok: false, error: `AI Brain API با وضعیت ${response.status} پاسخ داد.` };
     return { ok: true, data: (await response.json()) as T };
   } catch (error) {
-    return { ok: false, error: error instanceof Error ? error.message : "AI Brain API request failed." };
+    return { ok: false, error: error instanceof Error ? error.message : "درخواست AI Brain API ناموفق بود." };
   }
 }
 
@@ -285,7 +285,7 @@ function mapServers(rows: ApiObject[]): Server[] {
 function mapTasks(rows: ApiObject[]): Task[] {
   return rows.map((row, index) => ({
     id: text(row.id, `task-${index}`),
-    title: text(row.title, "Untitled task"),
+      title: text(row.title, "وظیفه بدون عنوان"),
     project: text(row.project, "AI Brain"),
     owner: text(row.owner || row.assignee || row.metadata?.owner || row.metadata?.assignee, "Mostafa"),
     due: formatDateTime(row.due_at || metadataDateTime(row.metadata), "بدون زمان"),
@@ -298,7 +298,7 @@ function mapReminders(rows: ApiObject[]): Reminder[] {
   return rows.map((row, index) => ({
     id: text(row.id, `reminder-${index}`),
     time: formatDateTime(row.reminder_at, "بدون زمان"),
-    title: text(row.title, "Untitled reminder"),
+    title: text(row.title, "یادآوری بدون عنوان"),
     project: text(row.project, "AI Brain"),
     priority: priorityValue(row.priority),
     status: String(row.status || "").toLowerCase() === "done" ? "done" : "open"
@@ -311,10 +311,10 @@ function mapLogs(rows: ApiObject[]): LogEvent[] {
     const tone = logTone(row.status || row.level);
     return {
       id,
-      title: text(row.title || row.event_type, "AI Brain event"),
+      title: text(row.title || row.event_type, "رخداد AI Brain"),
       description: text(row.description || row.source || row.project, "AI Brain"),
       status: text(row.status || row.level, "info"),
-      time: formatDateTime(row.created_at || row.occurred_at, "recent"),
+      time: formatDateTime(row.created_at || row.occurred_at, "اخیر"),
       tone,
       href: `/logs`
     };
@@ -324,7 +324,7 @@ function mapLogs(rows: ApiObject[]): LogEvent[] {
 function mapWorkflows(rows: ApiObject[]): Workflow[] {
   return rows.map((row, index) => ({
     id: text(row.id || row.workflow_id || row.name, `workflow-${index}`),
-    name: text(row.name || row.title || row.workflow_id || row.id, `Workflow ${index + 1}`),
+      name: text(row.name || row.title || row.workflow_id || row.id, `گردش‌کار ${index + 1}`),
     project: text(row.project, "n8n"),
     lastRun: formatDateTime(row.updated_at || row.indexed_at || row.created_at, "ثبت نشده"),
     status: statusFa(row.status),
@@ -335,7 +335,7 @@ function mapWorkflows(rows: ApiObject[]): Workflow[] {
 
 function mapConversations(rows: ApiObject[]): Conversation[] {
   return rows.map((row, index) => ({
-    person: text(row.title || row.external_conversation_id, `Conversation ${index + 1}`),
+    person: text(row.title || row.external_conversation_id, `مکالمه ${index + 1}`),
     project: text(row.project, "AI Brain"),
     summary: text(row.summary, `${numberValue(row.message_count, 0)} پیام در AI Brain ذخیره شده است.`),
     nextAction: formatDateTime(row.last_message_at || row.updated_at, "بررسی مکالمه"),
@@ -348,8 +348,8 @@ function mapActions(rows: ApiObject[]): SafeAction[] {
     const sensitive = Boolean(row.sensitive || row.approval_required);
     return {
       id: text(row.id, `action-${index}`),
-      title: text(row.title, "Action"),
-      description: text(row.description, "AI Brain action"),
+      title: text(row.title, "اقدام"),
+      description: text(row.description, "اقدام AI Brain"),
       tone: sensitive ? "warning" : "success",
       sensitive,
       href: "/actions"
@@ -359,16 +359,16 @@ function mapActions(rows: ApiObject[]): SafeAction[] {
 
 function mapConnections(response: ApiObject | null): Connection[] {
   if (!response) {
-    return [{ label: "AI Brain API", status: "Unavailable", tone: "warning" }];
+    return [{ label: "AI Brain API", status: "در دسترس نیست", tone: "warning" }];
   }
 
   return [
-    { label: "AI Brain API", status: text(response.api?.status || response.status, "unknown"), tone: statusTone(response.api?.status || response.status) },
-    { label: "Database", status: text(response.database?.status, "unknown"), tone: statusTone(response.database?.status) },
-    { label: "Redis", status: text(response.redis?.status, "unknown"), tone: statusTone(response.redis?.status) },
-    { label: "Qdrant", status: text(response.qdrant?.status, "unknown"), tone: statusTone(response.qdrant?.status) },
-    { label: "n8n", status: text(response.n8n?.status, "unknown"), tone: statusTone(response.n8n?.status) },
-    { label: "AI backend", status: text(response.ai_backend?.status, "unknown"), tone: statusTone(response.ai_backend?.status) }
+    { label: "AI Brain API", status: displayStatus(response.api?.status || response.status), tone: statusTone(response.api?.status || response.status) },
+    { label: "پایگاه داده", status: displayStatus(response.database?.status), tone: statusTone(response.database?.status) },
+    { label: "Redis", status: displayStatus(response.redis?.status), tone: statusTone(response.redis?.status) },
+    { label: "Qdrant", status: displayStatus(response.qdrant?.status), tone: statusTone(response.qdrant?.status) },
+    { label: "n8n", status: displayStatus(response.n8n?.status), tone: statusTone(response.n8n?.status) },
+    { label: "بک‌اند AI", status: displayStatus(response.ai_backend?.status), tone: statusTone(response.ai_backend?.status) }
   ];
 }
 
@@ -378,7 +378,7 @@ function deriveAlerts(servers: Server[], logs: LogEvent[]): Alert[] {
     .map((server) => ({
       title: `${server.name} نیازمند بررسی است`,
       description: server.status,
-      meta: server.disk ? `Disk ${server.disk}%` : "Live",
+      meta: server.disk ? `Disk ${server.disk}%` : "زنده",
       tone: server.tone,
       href: "/servers"
     }));
@@ -458,6 +458,15 @@ function statusFa(status: unknown) {
   if (["ok", "active", "success", "healthy", "configured", "online"].includes(value)) return "آنلاین";
   if (["degraded", "pending", "warning"].includes(value)) return "نیازمند بررسی";
   if (["unavailable", "error", "failed", "critical"].includes(value)) return "قطع";
+  return text(status, "نامشخص");
+}
+
+function displayStatus(status: unknown) {
+  const value = String(status || "").toLowerCase();
+  if (["ok", "active", "success", "healthy", "configured", "online"].includes(value)) return "متصل";
+  if (["degraded", "pending", "warning"].includes(value)) return "نیازمند بررسی";
+  if (["unavailable", "error", "failed", "not_connected", "critical"].includes(value)) return "قطع";
+  if (value === "unknown" || !value) return "نامشخص";
   return text(status, "نامشخص");
 }
 

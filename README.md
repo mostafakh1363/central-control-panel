@@ -16,6 +16,7 @@ The panel includes a server-side AI Brain API adapter and a protected Next.js pr
 - `/logs` Operational logs
 - `/actions` Safe actions
 - `/ai` AI Assistant
+- `/telegram-financial` Telegram financial channel monitoring results and diagnostics
 - `/settings` Settings
 
 ## Included UI

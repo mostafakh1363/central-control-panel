@@ -11,10 +11,10 @@ type RunnerState = {
 };
 
 export function ActionRunner({ actions = fallbackActions }: { actions?: SafeAction[] }) {
-  const [state, setState] = useState<RunnerState>({ message: "هنوز هیچ اکشنی اجرا نشده است." });
+  const [state, setState] = useState<RunnerState>({ message: "هنوز هیچ اقدامی اجرا نشده است." });
 
   async function runAction(action: SafeAction) {
-    setState({ pendingId: action.id, message: "در حال ارسال درخواست به `AI Brain API`..." });
+    setState({ pendingId: action.id, message: "در حال ارسال درخواست به AI Brain API..." });
 
     const result = action.sensitive ? await requestApproval(action) : await runSafeReadAction(action);
 
@@ -68,7 +68,7 @@ async function runSafeReadAction(action: SafeAction): Promise<{ ok: boolean; mes
   const count = countPayloadRows(response.data);
   return {
     ok: true,
-    message: count > 0 ? `${action.title} از ` + "`AI Brain API`" + ` خوانده شد. تعداد رکورد: ${count}` : `${action.title} از ` + "`AI Brain API`" + " خوانده شد."
+    message: count > 0 ? `${action.title} از AI Brain API خوانده شد. تعداد رکورد: ${count}` : `${action.title} از AI Brain API خوانده شد.`
   };
 }
 
@@ -89,7 +89,7 @@ async function requestApproval(action: SafeAction): Promise<{ ok: boolean; messa
     return response;
   }
 
-  return { ok: true, message: `درخواست تأیید برای ${action.title} در ` + "`AI Brain API`" + " ثبت شد." };
+  return { ok: true, message: `درخواست تأیید برای ${action.title} در AI Brain API ثبت شد.` };
 }
 
 async function requestPanel(path: string, init: RequestInit): Promise<{ ok: true; data: unknown } | { ok: false; message: string }> {
@@ -103,12 +103,12 @@ async function requestPanel(path: string, init: RequestInit): Promise<{ ok: true
     });
 
     if (!response.ok) {
-      return { ok: false, message: (await readDetail(response)) || "اتصال به `AI Brain API` ناموفق بود." };
+      return { ok: false, message: (await readDetail(response)) || "اتصال به AI Brain API ناموفق بود." };
     }
 
     return { ok: true, data: await response.json().catch(() => null) };
   } catch {
-    return { ok: false, message: "مرورگر نتوانست به `API proxy` پنل وصل شود." };
+    return { ok: false, message: "مرورگر نتوانست به پراکسی API پنل وصل شود." };
   }
 }
 

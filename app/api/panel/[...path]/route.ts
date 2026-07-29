@@ -13,12 +13,12 @@ async function forward(request: Request, context: RouteContext) {
   const { path } = await context.params;
   const endpoint = resolveEndpoint(path, request.method);
   if (!endpoint) {
-    return NextResponse.json({ detail: "Panel endpoint is not allowed." }, { status: 404 });
+    return NextResponse.json({ detail: "این مسیر برای پنل مجاز نیست." }, { status: 404 });
   }
 
   const apiKey = process.env.AI_BRAIN_PANEL_API_KEY || process.env.AI_BRAIN_API_KEY || process.env.COMMAND_CENTER_API_KEY || "";
   if (!apiKey) {
-    return NextResponse.json({ detail: "AI Brain API key is not configured." }, { status: 503 });
+    return NextResponse.json({ detail: "کلید AI Brain API برای پنل تنظیم نشده است." }, { status: 503 });
   }
 
   const sourceUrl = new URL(request.url);
@@ -51,13 +51,13 @@ async function forward(request: Request, context: RouteContext) {
       }
     });
   } catch {
-    return NextResponse.json({ detail: "AI Brain API is unavailable." }, { status: 503 });
+    return NextResponse.json({ detail: "AI Brain API در دسترس نیست." }, { status: 503 });
   }
 }
 
 function resolveEndpoint(path: string[], method: string): Endpoint | null {
   const normalizedMethod = method.toUpperCase();
-  const [resource, id, action] = path;
+  const [resource, id, action, subAction] = path;
 
   if (normalizedMethod === "GET" && path.length === 1) {
     const readEndpoints: Record<string, string> = {
@@ -105,11 +105,37 @@ function resolveEndpoint(path: string[], method: string): Endpoint | null {
     return { path: "/api/ai/chat", method: "POST" };
   }
 
+  if (resource === "telegram-financial") {
+    if (normalizedMethod === "GET" && id === "health" && !action) {
+      return { path: "/api/telegram-financial/health", method: "GET" };
+    }
+
+    if (normalizedMethod === "GET" && id === "sources" && !action) {
+      return { path: "/api/telegram-financial/sources", method: "GET" };
+    }
+
+    if (normalizedMethod === "GET" && id === "posts" && !action) {
+      return { path: "/api/telegram-financial/posts", method: "GET" };
+    }
+
+    if (normalizedMethod === "GET" && id === "posts" && action && !subAction && isUuid(action)) {
+      return { path: `/api/telegram-financial/posts/${encodeURIComponent(action)}`, method: "GET" };
+    }
+
+    if (normalizedMethod === "POST" && id === "posts" && action && subAction === "analyze" && isUuid(action)) {
+      return { path: `/api/telegram-financial/posts/${encodeURIComponent(action)}/analyze`, method: "POST" };
+    }
+  }
+
   if (normalizedMethod === "PATCH" && resource === "settings" && !id) {
     return { path: "/api/settings", method: "PATCH" };
   }
 
   return null;
+}
+
+function isUuid(value: string) {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
 }
 
 export const GET = forward;

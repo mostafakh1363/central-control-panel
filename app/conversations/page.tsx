@@ -12,14 +12,14 @@ export default async function ConversationsPage() {
   return (
     <AppShell>
       <PageTitle
-        eyebrow="Conversation Memory"
-        title="مکالمات"
+        eyebrow="حافظه مکالمات"
+        title="مکالمه‌ها"
         description="هر مکالمه به پروژه، نتیجه و قدم بعدی وصل می‌شود."
         actions={
           <>
             <Badge tone={sourceTone(result.source)}>{sourceLabel(result.source)}</Badge>
             <LinkButton href="/tasks" variant="secondary" icon="check">ساخت وظیفه</LinkButton>
-            <LinkButton href="/ai" variant="primary" icon="spark">خلاصه با AI</LinkButton>
+            <LinkButton href="/ai" variant="primary" icon="spark">خلاصه‌سازی با AI</LinkButton>
           </>
         }
       />
@@ -48,14 +48,14 @@ export default async function ConversationsPage() {
                     <strong>{conversation.nextAction}</strong>
                   </div>
                   <div className="row-actions">
-                    <LinkButton size="sm" variant="secondary" href="/tasks">ساخت task</LinkButton>
-                    <LinkButton size="sm" variant="ghost" href="/ai">Ask AI</LinkButton>
+                    <LinkButton size="sm" variant="secondary" href="/tasks">ساخت وظیفه</LinkButton>
+                    <LinkButton size="sm" variant="ghost" href="/ai">پرسش از AI</LinkButton>
                   </div>
                 </article>
               ))}
             </div>
           ) : (
-            <EmptyState title="مکالمه‌ای پیدا نشد" description="endpoint مکالمات داده‌ای برای نمایش برنگرداند." />
+            <EmptyState title="مکالمه‌ای پیدا نشد" description="مسیر API مکالمه‌ها داده‌ای برای نمایش برنگرداند." />
           )}
         </Panel>
       </section>

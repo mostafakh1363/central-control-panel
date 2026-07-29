@@ -7,7 +7,7 @@ import { panelClientPath } from "@/lib/panel-client";
 const prompts = [
   "وضعیت همه پروژه‌ها را خلاصه کن",
   "هشدارهای سرور را بررسی کن",
-  "از مکالمه آخر task بساز",
+  "از مکالمه آخر وظیفه بساز",
   "کارهای امروز را اولویت‌بندی کن",
   "قدم بعدی Mofanex چیست؟"
 ];
@@ -23,7 +23,7 @@ export function AiConsole() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
-      text: "به `AI Brain API` وصل هستم اگر کلید پنل روی سرور تنظیم شده باشد. سؤال عملیاتی خودت را بفرست."
+      text: "اگر کلید پنل روی سرور تنظیم شده باشد، به AI Brain API وصل هستم. سؤال عملیاتی خودت را بفرست."
     }
   ]);
 
@@ -56,14 +56,14 @@ export function AiConsole() {
       <div className="chat-history" aria-live="polite">
         {messages.map((message, index) => (
           <div className={`chat-message ${message.role}`} key={`${message.role}-${index}`}>
-            <strong>{message.role === "assistant" ? "AI Assistant" : "Mostafa"}</strong>
+            <strong>{message.role === "assistant" ? "دستیار AI" : "مصطفی"}</strong>
             <p>{message.text}</p>
           </div>
         ))}
         {isSending ? (
           <div className="chat-message assistant">
-            <strong>AI Assistant</strong>
-            <p>در حال دریافت پاسخ از `AI Brain API`...</p>
+            <strong>دستیار AI</strong>
+            <p>در حال دریافت پاسخ از AI Brain API...</p>
           </div>
         ) : null}
       </div>
@@ -99,13 +99,13 @@ async function askAi(message: string) {
     });
 
     if (!response.ok) {
-      return (await readDetail(response)) || "اتصال به `AI Brain API` ناموفق بود.";
+      return (await readDetail(response)) || "اتصال به AI Brain API ناموفق بود.";
     }
 
     const data = (await response.json()) as { answer?: string; message?: string; response?: string };
-    return data.answer || data.response || data.message || "پاسخ از `AI Brain API` دریافت شد، ولی متن پاسخ خالی بود.";
+    return data.answer || data.response || data.message || "پاسخ از AI Brain API دریافت شد، ولی متن پاسخ خالی بود.";
   } catch {
-    return "مرورگر نتوانست به `API proxy` پنل وصل شود.";
+    return "مرورگر نتوانست به پراکسی API پنل وصل شود.";
   }
 }
 

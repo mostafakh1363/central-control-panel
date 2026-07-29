@@ -1,7 +1,7 @@
 {
   "name": "Mostafa Command Center",
   "short_name": "MCC",
-  "description": "Personal AI operations command center for projects, servers, logs, reminders, and safe actions.",
+  "description": "مرکز کنترل عملیاتی برای پروژه‌ها، سرورها، لاگ‌ها، یادآوری‌ها و اقدام‌های امن.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

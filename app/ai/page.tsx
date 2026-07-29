@@ -12,9 +12,9 @@ export default async function AiPage() {
   return (
     <AppShell>
       <PageTitle
-        eyebrow="AI Operations Assistant"
-        title="AI Assistant"
-        description="چت عملیاتی برای خلاصه پروژه‌ها، ساخت وظیفه، بررسی لاگ و آماده‌سازی اکشن."
+        eyebrow="دستیار عملیاتی AI"
+        title="دستیار AI"
+        description="چت عملیاتی برای خلاصه پروژه‌ها، ساخت وظیفه، بررسی لاگ و آماده‌سازی اقدام."
         actions={
           <>
             <Badge tone={sourceTone(dashboard.source)}>{sourceLabel(dashboard.source)}</Badge>
@@ -24,15 +24,15 @@ export default async function AiPage() {
       />
 
       <section className="dashboard-grid">
-        <Panel title="چت عملیاتی" description="پیام‌ها از مسیر امن proxy به AI backend ارسال می‌شوند." className="span-8">
+        <Panel title="چت عملیاتی" description="پیام‌ها از مسیر امن پراکسی به بک‌اند AI ارسال می‌شوند." className="span-8">
           <AiConsole />
         </Panel>
 
-        <Panel title="Context فعال" description="Context نمایشی فقط از پروژه‌ها و آیتم‌های قابل دسترسی پنل ساخته می‌شود." className="span-4">
+        <Panel title="زمینه فعال" description="زمینه نمایشی فقط از پروژه‌ها و آیتم‌های قابل دسترسی پنل ساخته می‌شود." className="span-4">
           <div className="context-list">
-            <div><strong>Projects</strong><span>{projects.length ? projects.map((project) => project.name).join("، ") : "داده‌ای دریافت نشد"}</span></div>
-            <div><strong>Today</strong><span>{reminders.length} reminder، {alerts.length} alert</span></div>
-            <div><strong>Safe mode</strong><span>اکشن‌های حساس فقط approval request می‌سازند.</span></div>
+            <div><strong>پروژه‌ها</strong><span>{projects.length ? projects.map((project) => project.name).join("، ") : "داده‌ای دریافت نشد"}</span></div>
+            <div><strong>امروز</strong><span>{reminders.length} یادآوری، {alerts.length} هشدار</span></div>
+            <div><strong>حالت امن</strong><span>اقدام‌های حساس فقط درخواست تأیید می‌سازند.</span></div>
           </div>
         </Panel>
       </section>

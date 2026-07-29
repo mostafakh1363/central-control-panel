@@ -10,7 +10,7 @@ export function WorkflowActions({ workflowId }: { workflowId: string }) {
 
   async function requestExecution() {
     setPending(true);
-    setMessage("در حال ثبت درخواست اجرای workflow...");
+    setMessage("در حال ثبت درخواست اجرای گردش‌کار...");
 
     try {
       const response = await fetch(panelClientPath(`/api/panel/workflows/${encodeURIComponent(workflowId)}/execute-request`), {
@@ -19,9 +19,9 @@ export function WorkflowActions({ workflowId }: { workflowId: string }) {
         body: JSON.stringify({ source: "central-control-panel" })
       });
 
-      setMessage(response.ok ? "درخواست اجرای workflow ثبت شد." : (await readDetail(response)) || "اتصال به `AI Brain API` ناموفق بود.");
+      setMessage(response.ok ? "درخواست اجرای گردش‌کار ثبت شد." : (await readDetail(response)) || "اتصال به AI Brain API ناموفق بود.");
     } catch {
-      setMessage("مرورگر نتوانست به `API proxy` پنل وصل شود.");
+      setMessage("مرورگر نتوانست به پراکسی API پنل وصل شود.");
     } finally {
       setPending(false);
     }
@@ -31,7 +31,7 @@ export function WorkflowActions({ workflowId }: { workflowId: string }) {
     <div className="row-actions row-actions--compact">
       <LinkButton href="/logs" size="sm" variant="secondary">جزئیات</LinkButton>
       <Button size="sm" variant="primary" disabled={pending} onClick={requestExecution}>
-        {pending ? "در حال ثبت" : "Run request"}
+        {pending ? "در حال ثبت" : "درخواست اجرا"}
       </Button>
       {message ? <small className="inline-status">{message}</small> : null}
     </div>

@@ -12,7 +12,7 @@ export default async function LogsPage() {
   return (
     <AppShell>
       <PageTitle
-        eyebrow="Operational Logs"
+        eyebrow="لاگ‌های عملیاتی"
         title="لاگ‌ها"
         description="رخدادهای سیستم به‌شکل خلاصه، قابل اسکن و قابل پیگیری نمایش داده می‌شوند."
         actions={
@@ -27,8 +27,8 @@ export default async function LogsPage() {
       {result.error ? <section className="action-status">{result.error}</section> : null}
 
       <section className="dashboard-grid">
-        <Panel title="لاگ‌های سیستم" description="روی موبایل هر لاگ به کارت قابل لمس تبدیل می‌شود و فیلترها local کار می‌کنند." className="span-12">
-          {logs.length ? <LogList logs={logs} /> : <EmptyState title="لاگی پیدا نشد" description="endpoint لاگ‌ها داده‌ای برای نمایش برنگرداند." />}
+        <Panel title="لاگ‌های سیستم" description="روی موبایل هر لاگ به کارت قابل لمس تبدیل می‌شود و فیلترها در همین صفحه کار می‌کنند." className="span-12">
+          {logs.length ? <LogList logs={logs} /> : <EmptyState title="لاگی پیدا نشد" description="مسیر API لاگ‌ها داده‌ای برای نمایش برنگرداند." />}
         </Panel>
       </section>
     </AppShell>

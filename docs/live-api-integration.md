@@ -59,6 +59,7 @@ It exposes typed data loaders for:
 - conversations
 - actions
 - settings and connection health
+- Telegram financial monitor health, sources, posts, and reanalysis requests
 
 If the API key is missing or the backend request fails, the adapter returns the existing fallback data and exposes the error to the page.
 
@@ -83,6 +84,11 @@ Allowed frontend routes include:
 - `GET /api/panel/actions`
 - `GET /api/panel/settings`
 - `GET /api/panel/connections`
+- `GET /api/panel/telegram-financial/health`
+- `GET /api/panel/telegram-financial/sources`
+- `GET /api/panel/telegram-financial/posts`
+- `GET /api/panel/telegram-financial/posts/{id}`
+- `POST /api/panel/telegram-financial/posts/{id}/analyze`
 - `POST /api/panel/tasks/{id}/done`
 - `POST /api/panel/reminders/{id}/done`
 - `POST /api/panel/servers/{id}/health-check`

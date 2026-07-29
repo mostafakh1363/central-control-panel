@@ -13,7 +13,7 @@ export function ServerActions({ serverId }: { serverId: string }) {
   const [state, setState] = useState<ServerActionState>({});
 
   async function run(action: "health" | "restart") {
-    setState({ pending: action, message: "در حال ارسال درخواست به `AI Brain API`..." });
+    setState({ pending: action, message: "در حال ارسال درخواست به AI Brain API..." });
     const endpoint = action === "health" ? "health-check" : "restart-request";
 
     try {
@@ -24,15 +24,15 @@ export function ServerActions({ serverId }: { serverId: string }) {
       });
 
       if (!response.ok) {
-        setState({ message: (await readDetail(response)) || "اتصال به `AI Brain API` ناموفق بود." });
+        setState({ message: (await readDetail(response)) || "اتصال به AI Brain API ناموفق بود." });
         return;
       }
 
       setState({
-        message: action === "health" ? "درخواست health check ثبت شد." : "درخواست restart برای تأیید ثبت شد."
+        message: action === "health" ? "درخواست بررسی سلامت ثبت شد." : "درخواست ری‌استارت برای تأیید ثبت شد."
       });
     } catch {
-      setState({ message: "مرورگر نتوانست به `API proxy` پنل وصل شود." });
+      setState({ message: "مرورگر نتوانست به پراکسی API پنل وصل شود." });
     }
   }
 
@@ -41,10 +41,10 @@ export function ServerActions({ serverId }: { serverId: string }) {
       <div className="row-actions">
         <LinkButton size="sm" variant="secondary" href="/logs">مشاهده لاگ</LinkButton>
         <Button size="sm" variant="secondary" disabled={state.pending === "health"} onClick={() => run("health")}>
-          {state.pending === "health" ? "در حال چک" : "چک سرویس"}
+          {state.pending === "health" ? "در حال بررسی" : "بررسی سرویس"}
         </Button>
         <Button size="sm" variant="danger" disabled={state.pending === "restart"} onClick={() => run("restart")}>
-          {state.pending === "restart" ? "در حال ثبت" : "درخواست Restart"}
+          {state.pending === "restart" ? "در حال ثبت" : "درخواست ری‌استارت"}
         </Button>
       </div>
       {state.message ? <section className="action-status">{state.message}</section> : null}

@@ -34,31 +34,31 @@ export function SettingsControls({ initialSettings = defaultSettings }: { initia
   return (
     <div className="settings-list">
       <label>
-        <span>Theme</span>
+        <span>ظاهر</span>
         <select value={settings.theme} onChange={(event) => setSettings((value) => ({ ...value, theme: event.target.value }))}>
-          <option>System</option>
-          <option>Light</option>
-          <option>Dark</option>
+          <option value="System">مطابق سیستم</option>
+          <option value="Light">روشن</option>
+          <option value="Dark">تاریک</option>
         </select>
       </label>
       <label>
-        <span>Language</span>
+        <span>زبان</span>
         <select value={settings.language} onChange={(event) => setSettings((value) => ({ ...value, language: event.target.value }))}>
-          <option>Persian / RTL</option>
-          <option>English / LTR</option>
+          <option value="Persian / RTL">فارسی و راست‌به‌چپ</option>
+          <option value="English / LTR">انگلیسی و چپ‌به‌راست</option>
         </select>
       </label>
       <label>
-        <span>Notification channel</span>
+        <span>کانال اعلان</span>
         <select value={settings.notification} onChange={(event) => setSettings((value) => ({ ...value, notification: event.target.value }))}>
-          <option>Telegram + PWA</option>
-          <option>PWA only</option>
-          <option>Telegram only</option>
+          <option value="Telegram + PWA">تلگرام و PWA</option>
+          <option value="PWA only">فقط PWA</option>
+          <option value="Telegram only">فقط تلگرام</option>
         </select>
       </label>
       <div className="settings-footer">
         <Button variant="primary" disabled={status === "saving"} onClick={saveSettings}>
-          {status === "saving" ? "در حال ذخیره" : "ذخیره در `AI Brain`"}
+          {status === "saving" ? "در حال ذخیره" : "ذخیره در AI Brain"}
         </Button>
         <Badge tone={status === "saved" ? "success" : status === "error" ? "danger" : "warning"}>
           {status === "saved" ? "ذخیره شد" : status === "error" ? "خطای اتصال" : "ذخیره نشده"}

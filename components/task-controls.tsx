@@ -17,7 +17,7 @@ export function TaskChecklist({ tasks }: { tasks: Task[] }) {
   async function toggleTask(task: Task) {
     const nextDone = !done[task.id];
     setDone((value) => ({ ...value, [task.id]: nextDone }));
-    setStatus({ pendingId: task.id, message: "در حال ثبت وضعیت وظیفه در `AI Brain`..." });
+    setStatus({ pendingId: task.id, message: "در حال ثبت وضعیت وظیفه در AI Brain..." });
 
     const result = await postPanel(`/api/panel/tasks/${encodeURIComponent(task.id)}/done`, { done: nextDone });
 
@@ -27,7 +27,7 @@ export function TaskChecklist({ tasks }: { tasks: Task[] }) {
       return;
     }
 
-    setStatus({ message: nextDone ? "وظیفه در `AI Brain` انجام‌شده ثبت شد." : "وظیفه دوباره باز شد." });
+    setStatus({ message: nextDone ? "وظیفه در AI Brain انجام‌شده ثبت شد." : "وظیفه دوباره باز شد." });
   }
 
   return (
@@ -48,7 +48,7 @@ export function TaskChecklist({ tasks }: { tasks: Task[] }) {
               <Button size="sm" variant={isDone ? "secondary" : "primary"} disabled={isPending} onClick={() => toggleTask(task)}>
                 {isPending ? "در حال ثبت" : isDone ? "بازگردانی" : "انجام شد"}
               </Button>
-              <Button size="sm" variant="ghost" disabled={isPending} onClick={() => setStatus({ message: "برای زمان‌بندی دوباره، مسیر `API` باید در بک‌اند فعال شود." })}>
+              <Button size="sm" variant="ghost" disabled={isPending} onClick={() => setStatus({ message: "برای زمان‌بندی دوباره، مسیر API باید در بک‌اند فعال شود." })}>
                 زمان‌بندی دوباره
               </Button>
             </div>
@@ -73,7 +73,7 @@ export function ReminderChecklist({ reminders }: { reminders: Reminder[] }) {
   async function toggleReminder(item: Reminder) {
     const nextDone = !done[item.id];
     setDone((value) => ({ ...value, [item.id]: nextDone }));
-    setStatus({ pendingId: item.id, message: "در حال ثبت وضعیت یادآوری در `AI Brain`..." });
+    setStatus({ pendingId: item.id, message: "در حال ثبت وضعیت یادآوری در AI Brain..." });
 
     const result = await postPanel(`/api/panel/reminders/${encodeURIComponent(item.id)}/done`, { done: nextDone });
 
@@ -83,7 +83,7 @@ export function ReminderChecklist({ reminders }: { reminders: Reminder[] }) {
       return;
     }
 
-    setStatus({ message: nextDone ? "یادآوری در `AI Brain` انجام‌شده ثبت شد." : "یادآوری دوباره باز شد." });
+    setStatus({ message: nextDone ? "یادآوری در AI Brain انجام‌شده ثبت شد." : "یادآوری دوباره باز شد." });
   }
 
   return (
@@ -123,12 +123,12 @@ async function postPanel(path: string, body: unknown): Promise<{ ok: true; messa
 
     if (!response.ok) {
       const detail = await readDetail(response);
-      return { ok: false, message: detail || "اتصال به `AI Brain API` ناموفق بود." };
+      return { ok: false, message: detail || "اتصال به AI Brain API ناموفق بود." };
     }
 
     return { ok: true };
   } catch {
-    return { ok: false, message: "مرورگر نتوانست به `API proxy` پنل وصل شود." };
+    return { ok: false, message: "مرورگر نتوانست به پراکسی API پنل وصل شود." };
   }
 }
 

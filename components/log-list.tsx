@@ -35,7 +35,7 @@ export function LogList({ logs }: { logs: LogEvent[] }) {
 
       <div className="data-table">
         <div className="data-table__row data-table__head">
-          <span>Time</span><span>Event</span><span>Source</span><span>Status</span><span>Action</span>
+          <span>زمان</span><span>رخداد</span><span>منبع</span><span>وضعیت</span><span>اقدام</span>
         </div>
         {filteredLogs.map((log) => (
           <div className="data-table__row" key={log.id}>
@@ -58,9 +58,9 @@ export function LogList({ logs }: { logs: LogEvent[] }) {
           </div>
           <p>{selected.description}</p>
           <dl className="meta-list">
-            <div><dt>Time</dt><dd>{selected.time}</dd></div>
-            <div><dt>Status</dt><dd>{selected.status}</dd></div>
-            <div><dt>ID</dt><dd>{selected.id}</dd></div>
+            <div><dt>زمان</dt><dd>{selected.time}</dd></div>
+            <div><dt>وضعیت</dt><dd>{selected.status}</dd></div>
+            <div><dt>شناسه</dt><dd>{selected.id}</dd></div>
           </dl>
         </section>
       ) : null}

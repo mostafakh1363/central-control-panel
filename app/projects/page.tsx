@@ -12,7 +12,7 @@ export default async function ProjectsPage() {
   return (
     <AppShell>
       <PageTitle
-        eyebrow="Project Registry"
+        eyebrow="ثبت پروژه‌ها"
         title="پروژه‌ها"
         description="هر پروژه جدا دیده می‌شود تا دسترسی، وظایف، لاگ‌ها و قدم بعدی مشخص باشد."
         actions={
@@ -27,7 +27,7 @@ export default async function ProjectsPage() {
       {result.error ? <section className="action-status">{result.error}</section> : null}
 
       <section className="dashboard-grid">
-        <Panel title="همه پروژه‌ها" description="وضعیت، مالک، پیشرفت و قدم بعدی پروژه‌ها از API خوانده می‌شود." className="span-12">
+        <Panel title="همه پروژه‌ها" description="وضعیت، مالک، پیشرفت و قدم بعدی پروژه‌ها از داده زنده پنل خوانده می‌شود." className="span-12">
           {projects.length ? (
             <div className="cards-grid">
               {projects.map((project) => (
@@ -44,19 +44,19 @@ export default async function ProjectsPage() {
                   </div>
                   <ProgressBar value={project.progress} tone={project.tone} />
                   <dl className="meta-list">
-                    <div><dt>Owner</dt><dd>{project.owner}</dd></div>
-                    <div><dt>Open tasks</dt><dd>{project.openTasks}</dd></div>
-                    <div><dt>Next step</dt><dd>{project.nextStep}</dd></div>
+                    <div><dt>مالک</dt><dd>{project.owner}</dd></div>
+                    <div><dt>وظایف باز</dt><dd>{project.openTasks}</dd></div>
+                    <div><dt>قدم بعدی</dt><dd>{project.nextStep}</dd></div>
                   </dl>
                   <div className="row-actions">
                     <LinkButton size="sm" variant="secondary" href="/tasks">وظایف</LinkButton>
-                    <LinkButton size="sm" variant="ghost" href="/ai">Ask AI</LinkButton>
+                    <LinkButton size="sm" variant="ghost" href="/ai">پرسش از AI</LinkButton>
                   </div>
                 </article>
               ))}
             </div>
           ) : (
-            <EmptyState title="پروژه‌ای پیدا نشد" description="endpoint پروژه‌ها داده‌ای برای نمایش برنگرداند." />
+            <EmptyState title="پروژه‌ای پیدا نشد" description="مسیر API پروژه‌ها داده‌ای برای نمایش برنگرداند." />
           )}
         </Panel>
       </section>

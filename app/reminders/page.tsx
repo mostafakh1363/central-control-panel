@@ -17,9 +17,9 @@ export default async function RemindersPage() {
   return (
     <AppShell>
       <PageTitle
-        eyebrow="Reminder Center"
+        eyebrow="مرکز یادآوری"
         title="یادآوری‌ها"
-        description="پیگیری‌های زمان‌دار، follow-up ها و کارهایی که باید سر وقت دیده شوند."
+        description="پیگیری‌های زمان‌دار، پیام‌های پیگیری و کارهایی که باید سر وقت دیده شوند."
         actions={
           <>
             <Badge tone={sourceTone(result.source)}>{sourceLabel(result.source)}</Badge>
@@ -32,7 +32,7 @@ export default async function RemindersPage() {
       {result.error ? <section className="action-status">{result.error}</section> : null}
 
       <section className="dashboard-grid">
-        <Panel title="خلاصه یادآوری‌ها" description="برای دید سریع روی موبایل و دسکتاپ." className="span-4">
+        <Panel title="خلاصه یادآوری‌ها" description="نمای سریع برای موبایل و دسکتاپ." className="span-4">
           <div className="summary-stack">
             {summary.map((item) => (
               <div className="summary-item" key={item.label}>
@@ -44,8 +44,8 @@ export default async function RemindersPage() {
           </div>
         </Panel>
 
-        <Panel title="یادآوری‌های باز" description="هر مورد با لمس مستقیم انجام‌شده یا باز می‌شود." className="span-8">
-          {reminders.length ? <ReminderChecklist reminders={reminders} /> : <EmptyState title="یادآوری باز نداری" description="endpoint یادآوری‌ها داده‌ای برای نمایش برنگرداند." />}
+        <Panel title="یادآوری‌های باز" description="هر مورد با یک لمس انجام‌شده یا دوباره باز می‌شود." className="span-8">
+          {reminders.length ? <ReminderChecklist reminders={reminders} /> : <EmptyState title="یادآوری باز نداری" description="مسیر API یادآوری‌ها داده‌ای برای نمایش برنگرداند." />}
         </Panel>
       </section>
     </AppShell>

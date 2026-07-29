@@ -13,14 +13,14 @@ export default async function ServersPage() {
   return (
     <AppShell>
       <PageTitle
-        eyebrow="VPS Monitoring"
+        eyebrow="مانیتورینگ سرورها"
         title="سرورها"
-        description="وضعیت منابع، health check و اکشن‌های امن برای سرورها از API واقعی خوانده می‌شود."
+        description="وضعیت منابع، بررسی سلامت و اقدام‌های امن سرورها از API واقعی خوانده می‌شود."
         actions={
           <>
             <Badge tone={sourceTone(serverResult.source)}>{sourceLabel(serverResult.source)}</Badge>
             <LinkButton href="/logs" variant="secondary" icon="logs">لاگ‌ها</LinkButton>
-            <LinkButton href="/actions" variant="primary" icon="pulse">اکشن‌ها</LinkButton>
+            <LinkButton href="/actions" variant="primary" icon="pulse">اقدام‌ها</LinkButton>
           </>
         }
       />
@@ -40,12 +40,12 @@ export default async function ServersPage() {
             </Panel>
           ))
         ) : (
-          <Panel title="داده سرور پیدا نشد" description="endpoint سرورها داده‌ای برای نمایش برنگرداند." className="span-12">
+          <Panel title="داده سرور پیدا نشد" description="مسیر API سرورها داده‌ای برای نمایش برنگرداند." className="span-12">
             <EmptyState title="سروری برای نمایش نیست" description="کلید API تنظیم شده، ولی لیست سرورها خالی برگشت." />
           </Panel>
         )}
 
-        <Panel title="اکشن‌های مرتبط" description="اکشن‌های safe و sensitive از API خوانده می‌شوند و اجرای حساس approval می‌خواهد." className="span-12">
+        <Panel title="اقدام‌های مرتبط" description="اقدام‌های ایمن و حساس از API خوانده می‌شوند و اجرای حساس تأیید جداگانه می‌خواهد." className="span-12">
           <ActionRunner actions={actionResult.data} />
         </Panel>
       </section>

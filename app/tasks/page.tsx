@@ -13,14 +13,14 @@ export default async function TasksPage() {
   return (
     <AppShell>
       <PageTitle
-        eyebrow="Task OS"
+        eyebrow="مدیریت وظایف"
         title="وظایف من"
-        description="فقط کارهایی که باید انجام شوند، نه backlog فنی سیستم."
+        description="فقط کارهای قابل انجام کاربر نمایش داده می‌شود، نه بک‌لاگ فنی سیستم."
         actions={
           <>
             <Badge tone={sourceTone(taskResult.source)}>{sourceLabel(taskResult.source)}</Badge>
             <LinkButton href="/reminders" variant="secondary" icon="bell">یادآوری‌ها</LinkButton>
-            <LinkButton href="/ai" variant="primary" icon="spark">ساخت task با AI</LinkButton>
+            <LinkButton href="/ai" variant="primary" icon="spark">ساخت وظیفه با AI</LinkButton>
           </>
         }
       />
@@ -29,11 +29,11 @@ export default async function TasksPage() {
 
       <section className="dashboard-grid">
         <Panel title="کارهای باز" description="از جلسه‌ها، پروژه‌ها و یادآوری‌ها استخراج شده‌اند." className="span-8">
-          {tasks.length ? <TaskChecklist tasks={tasks} /> : <EmptyState title="فعلاً وظیفه شخصی باز نداری" description="endpoint وظایف داده قابل انجام برای کاربر برنگرداند." />}
+          {tasks.length ? <TaskChecklist tasks={tasks} /> : <EmptyState title="فعلاً وظیفه شخصی باز نداری" description="مسیر API وظایف داده قابل انجام برای کاربر برنگرداند." />}
         </Panel>
 
-        <Panel title="یادآوری‌های امروز" description="روی موبایل مثل checklist کار می‌کند." className="span-4">
-          {reminders.length ? <ReminderChecklist reminders={reminders} /> : <EmptyState title="یادآوری باز نداری" description="endpoint یادآوری‌ها داده‌ای برای نمایش برنگرداند." />}
+        <Panel title="یادآوری‌های امروز" description="روی موبایل مانند چک‌لیست قابل انجام است." className="span-4">
+          {reminders.length ? <ReminderChecklist reminders={reminders} /> : <EmptyState title="یادآوری باز نداری" description="مسیر API یادآوری‌ها داده‌ای برای نمایش برنگرداند." />}
         </Panel>
       </section>
     </AppShell>

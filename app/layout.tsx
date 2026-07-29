@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Mostafa Command Center",
-  description: "A personal AI operations command center for projects, servers, reminders, logs, and safe actions.",
+  description: "مرکز کنترل عملیاتی برای پروژه‌ها، سرورها، یادآوری‌ها، لاگ‌ها و اقدام‌های امن.",
   applicationName: "Mostafa Command Center",
   manifest: "/manifest.json",
   appleWebApp: {

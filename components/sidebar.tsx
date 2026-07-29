@@ -15,7 +15,7 @@ export function Sidebar() {
         <Logo />
         <span className="brand__copy">
           <strong>Mostafa</strong>
-          <span>Central Control</span>
+          <span>Command Center</span>
         </span>
       </Link>
 
@@ -43,9 +43,9 @@ export function Sidebar() {
           <div className="status-card__brain" aria-hidden="true">
             <Icon name="pulse" />
           </div>
-          <p>نمایش موبایل و دسکتاپ با داده‌های مشترک پنل هماهنگ است.</p>
+          <p>نمای موبایل و دسکتاپ با داده‌های مشترک پنل هماهنگ است.</p>
           <Link className="button" data-variant="secondary" data-size="sm" href="/servers">
-            <span>چک سرورها</span>
+            <span>بررسی سرورها</span>
           </Link>
         </section>
 

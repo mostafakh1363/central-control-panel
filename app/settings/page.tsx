@@ -11,13 +11,13 @@ export default async function SettingsPage() {
   return (
     <AppShell>
       <PageTitle
-        eyebrow="System Settings"
+        eyebrow="تنظیمات سیستم"
         title="تنظیمات"
-        description="ظاهر، زبان، نوتیفیکیشن و وضعیت اتصال‌های اصلی پنل."
+        description="ظاهر، زبان، اعلان‌ها و وضعیت اتصال‌های اصلی پنل."
         actions={
           <>
             <Badge tone={sourceTone(result.source)}>{sourceLabel(result.source)}</Badge>
-            <LinkButton href="/" variant="primary" icon="home">بازگشت به خانه</LinkButton>
+            <LinkButton href="/" variant="primary" icon="home">بازگشت به داشبورد</LinkButton>
           </>
         }
       />
@@ -25,11 +25,11 @@ export default async function SettingsPage() {
       {result.error ? <section className="action-status">{result.error}</section> : null}
 
       <section className="dashboard-grid">
-        <Panel title="تنظیمات اپ" description="این کنترل‌ها مقدار را در backend ذخیره می‌کنند، اگر endpoint فعال باشد." className="span-6">
+        <Panel title="تنظیمات پنل" description="این کنترل‌ها مقدار را در بک‌اند ذخیره می‌کنند، اگر مسیر API فعال باشد." className="span-6">
           <SettingsControls initialSettings={result.data.settings} />
         </Panel>
 
-        <Panel title="اتصال‌ها" description="وضعیت فعلی endpoint ها و سرویس‌های مورد نیاز." className="span-6">
+        <Panel title="اتصال‌ها" description="وضعیت فعلی مسیرهای API و سرویس‌های مورد نیاز." className="span-6">
           <div className="connection-list">
             {result.data.connections.map((connection) => (
               <div key={connection.label}>
