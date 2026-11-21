@@ -2,6 +2,8 @@
 
 Project ID: `central-control-panel`
 
+Project context for Claude Code / Codex CLI: see `CLAUDE.md`.
+
 Central skill registry: `mostafakh1363/ai-brain-skills`
 
 Before substantial work:
